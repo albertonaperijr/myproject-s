@@ -7,7 +7,6 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 		setTimeout(function() {
 			$('html, body').animate({scrollTop: 0}, 100);
 		}, 300);
-		toastr.info('Loading');
 
 		if ($scope.routeParams.classification == 'all') {
 			$scope.selectedSearchTypeId = '';
@@ -17,7 +16,9 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 			$scope.pageServiceProvider = 1;
 			$scope.pageForRent = 1;
 			$scope.pageJobOpening = 1;
+			toastr.info('no');
 		} else {
+			toastr.info('yes');
 			for (var i = $rootScope.searchType.length - 1; i >= 0; i--) {
 				if ($scope.routeParams.classification.split('-').join(' ') == $rootScope.searchType[i].description.toLowerCase()) {
 					$scope.selectedSearchTypeId = $rootScope.searchType[i].id;
