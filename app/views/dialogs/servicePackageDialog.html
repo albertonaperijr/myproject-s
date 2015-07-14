@@ -1,0 +1,54 @@
+<div class="modal-body" style="padding: 0; overflow: hidden; border-radius: 5px 5px 0 0;">
+    <div>
+        <img ng-src="{{(servicetoolInfo.toolImage) ? servicetoolInfo.toolImage : servicetoolInfo.thumbnail}}"
+             ng-show="servicetoolInfo.thumbnail"
+             class="img-responsive" alt="Service Tool"
+             ng-style="{'width': '100%'}" />
+        <img src="app/images/serbisyo-icons/service-package-default.png"
+             ng-hide="servicetoolInfo.thumbnail"
+             class="img-responsive" alt="Service Package Default"
+             ng-style="{'width': '100%'}" />
+        <img src="app/images/serbisyo-icons/ajax-loader-2.gif"
+             ng-show="showImageLoading"
+             class="img-responsive servicepackage-popup-image-loading" alt="Loading" />
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <br />
+        <strong>{{servicetoolInfo.toolName}}</strong>
+        <div class="clearfix"></div>
+        <strong><small>{{servicetoolInfo.companyName}}</small></strong>
+        <hr />
+        <div ng-style="{'height': (viewportSize < 600) ? '200px' : '', 'overflow': (viewportSize < 600) ? 'scroll' : 'hidden'}">
+            <small class="pre-description">{{servicetoolInfo.toolDescription}}</small>
+        </div>
+        <hr ng-show="servicetoolInfo.rentPrice" />
+        <small ng-show="servicetoolInfo.rentPrice">
+            Price: <strong>{{servicetoolInfo.rentPrice| currency: '&#8369;'}}</strong>
+            <span ng-repeat="unit in priceUnitInfo"
+                  ng-if="unit.id == servicetoolInfo.rentUnit">
+                {{unit.description}}
+            </span>
+        </small>
+        <div class="clearfix"></div>
+        <br />
+    </div>
+</div>
+<div class="modal-footer" ng-if="viewPage == 'viewService'">
+    <button class="btn btn-default btn-xs" ng-click="no()"><strong>CLOSE</strong></button>
+</div>
+<div class="modal-footer" ng-if="viewPage != 'viewService'">
+
+    <ul ng-social-buttons
+        ng-if="loginId == 3"
+        class="pull-left"
+        data-url="domainPath + '/search'"
+        data-title="'Serbisyo | ' + serbisyoTitle"
+        data-description="metaDescription"
+        data-image="servicetoolInfo.toolImage ? servicetoolInfo.toolImage : defaultMetaImage">
+        <li class="ng-social-facebook">Share</li>
+    </ul>
+
+    <button class="btn btn-default btn-xs" ng-click="no()"><strong>CLOSE</strong></button>
+    <button class="btn btn-default btn-xs" ng-click="yes()"><strong>VIEW SERVICE PROVIDER</strong></button>
+</div>
