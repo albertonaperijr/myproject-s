@@ -1,10 +1,17 @@
 'use strict';
 
-app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window', '$modal',
-	function($rootScope, $scope, $routeParams, $window, $modal) {
+app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout', 'toastr',
+	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout, toastr) {
 
 		$scope.routeParams = $routeParams;
-		setTimeout(function() {
+		var classification = 'classification=' + $scope.routeParams.classification;
+		var category = '&category=' + $scope.routeParams.category;
+		var location = '&location=' + $scope.routeParams.location;
+		var keyword = $scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '';
+		var page = $scope.routeParams.page ? '&page=' + $scope.routeParams.page : '';
+		var targetUrl;
+
+		$timeout(function() {
 			$('html, body').animate({scrollTop: 0}, 100);
 		}, 300);
 
@@ -16,9 +23,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 			$scope.pageServiceProvider = 1;
 			$scope.pageForRent = 1;
 			$scope.pageJobOpening = 1;
-			toastr.info('no');
 		} else {
-			toastr.info('yes');
 			for (var i = $rootScope.searchType.length - 1; i >= 0; i--) {
 				if ($scope.routeParams.classification.split('-').join(' ') == $rootScope.searchType[i].description.toLowerCase()) {
 					$scope.selectedSearchTypeId = $rootScope.searchType[i].id;
@@ -54,119 +59,84 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 
 		$scope.setSearchType = function(searchType) {
 			if (searchType) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=1';
+				classification = 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all');
 			} else {
-				$window.location.href = '#/search?'
-					+ 'classification=all'
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '');
+				classification = 'classification=all';
 			}
+			page = searchType ? '&page=1' : '';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
 		};
 
 		$scope.setCfgCategory = function(cfgCategory) {
 			if (cfgCategory) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + (cfgCategory.cfgCategoryName ? cfgCategory.cfgCategoryName.split(' ').join('-').toLowerCase() : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=1';
+				category = '&category=' + (cfgCategory.cfgCategoryName ? cfgCategory.cfgCategoryName.split(' ').join('-').toLowerCase() : 'all');
 			} else {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=all'
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '');
+				category = '&category=all';
 			}
+			page = ($scope.routeParams.classification == 'all') ? '' : '&page=1';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
 		};
 
 		$scope.pageChangeServicePackage = function() {
 			if ($scope.routeParams.page != $scope.pageServicePackage) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageServicePackage;
+				page = '&page=' + $scope.pageServicePackage;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeServiceProvider = function() {
 			if ($scope.routeParams.page != $scope.pageServiceProvider) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageServiceProvider;
+				page = '&page=' + $scope.pageServiceProvider;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeForRent = function() {
 			if ($scope.routeParams.page != $scope.pageForRent) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageForRent;
+				page = '&page=' + $scope.pageForRent;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeJobOpening = function() {
 			if ($scope.routeParams.page != $scope.pageJobOpening) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageJobOpening;
+				page = '&page=' + $scope.pageJobOpening;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.browseMore = function(searchType) {
-			$window.location.href = '#/search?'
-				+ 'classification=' + searchType.split(' ').join('-').toLowerCase()
-				+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-				+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-				+ '&page=1';
+			classification = 'classification=' + searchType.split(' ').join('-').toLowerCase();
+			page = '&page=1';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
+		};
+
+		$scope.showMoreCategory = function() {
+			$scope.limitCategory = $rootScope.lstCfgcategory.length;
+		};
+
+		$scope.showLessCategory = function() {
+			$scope.limitCategory = 10;
 		};
 
 		$scope.showModal = function() {
 			var modalInstance = $modal.open({
-                templateUrl: 'views/dialogs/dialog.html',
-                controller: 'ConfirmDialogCtrl',
-                size: 'lg'
-            });
-            modalInstance.result.then(function() {
-                
-            }, function() {
+				templateUrl: 'views/dialogs/dialog.html',
+				controller: 'ConfirmDialogCtrl',
+				size: 'sm'
+			});
+			modalInstance.result.then(function() {
 
-            });
+			}, function() {
+
+			});
 		};
-
-        function scrollTo(targetId) {
-            var topOffset;
-            var destination;
-            if (viewportWidth > 991) {
-                topOffset = 146;
-            } else {
-                topOffset = 80;
-            }
-            setTimeout(function() {
-                destination = $(targetId).offset().top - topOffset;
-                $('html, body').animate({scrollTop: destination}, 300);
-                setTimeout(function() {
-                    $(targetId).focus();
-                }, 300);
-            }, 300);
-        }
 
 	}]);

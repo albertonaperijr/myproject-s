@@ -1,10 +1,11 @@
 'use strict';
 
-app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter', '$window',
-	function($rootScope, $scope, $routeParams, $filter, $window) {
+app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter', '$window', 'toastr',
+	function($rootScope, $scope, $routeParams, $filter, $window, toastr) {
 
 		console.log($routeParams);
 		$scope.routeParams = $routeParams;
+		var openedToasts = [];
 
         $(window).scroll(function() {
             var verticalScrollPosition = $(this).scrollTop();
@@ -22,6 +23,8 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
 
 		$scope.goToTop = function() {
 			$('html, body').animate({scrollTop: 0}, 300);
+			var toast = openedToasts.pop();
+      		toastr.clear(toast);
 		};
 
 		$scope.searchSerbisyo = function() {
