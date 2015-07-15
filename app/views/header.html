@@ -3,7 +3,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a href="/" class="navbar-brand">
+			<a href="#/" class="navbar-brand">
 				<img src="images/serbisyo-logo.png" alt="Serbisyo.com" class="logo" />
 			</a>
 			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -49,7 +49,7 @@
 				<li><a href="">Post free Ad</a></li>
 				<li class="dropdown" ng-show="loggedIn">
 					<a class="dropdown-toggle" data-toggle="dropdown" href=a"#" id="menu">
-						Bebertz 
+						Pangit 
 						&nbsp;
 						<img src="images/serbisyo-icons/no-profile-picture.png" alt="user-image" class="nav-image" />
 						<span class="caret"></span>
@@ -133,7 +133,7 @@
 		<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-8 col-md-offset-7 col-sm-offset-6">
 			<div class="form-group">
 				<div class="input-group input-group-sm">
-					<input type="search" class="form-control" ng-focus="searchInputFocus = !searchInputFocus" ng-blur="searchInputFocus = !searchInputFocus" ng-style="{background: searchInputFocus || search.key ? 'white' : ''}" ng-model="search.key" placeholder="I'm looking for..." />
+					<input type="search" class="form-control searchkey whiteframe-z0" ng-model="search.key" placeholder="I'm looking for..." />
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" ng-click="searchSerbisyo()">
 							&nbsp;
@@ -146,10 +146,10 @@
 					<label class="input-group-addon" for="location">
 						<span class="glyphicon glyphicon-map-marker"></span>
 					</label>
-					<input type="text" name="location" id="location" class="form-control" ng-focus="locationInputFocus = !locationInputFocus" ng-blur="locationInputFocus = !locationInputFocus" ng-model="search.location" placeholder="{{locationInputFocus ? 'Enter Philippine city or town' : 'All Philippines'}}" ng-style="{'box-shadow': search.location == 'x' ? 'inset 0 -2px 0 #e51c23' : (search.location && locationInputFocus ? 'inset 0 -2px 0 #2196f3' : '')}" typeahead="CfgCitytown as CfgCitytown.citytownName + ', ' + CfgCitytown.fkCfgStateprovinceId.stateprovinceName for CfgCitytown in lstCfgCitytown | filter:$viewValue | limitTo:30" />
+					<input type="text" name="location" id="location" class="form-control" ng-focus="locationInputFocus = !locationInputFocus" ng-blur="locationInputFocus = !locationInputFocus" ng-model="search.location" placeholder="{{locationInputFocus ? 'Enter Philippine city or town' : 'All Philippines'}}" ng-style="{'box-shadow': search.location == 'x' ? 'inset 0 -2px 0 #e51c23' : (search.location && locationInputFocus ? 'inset 0 -2px 0 #2196f3' : '')}" typeahead="CfgCitytown as CfgCitytown.citytownName for CfgCitytown in lstCfgCitytown | filter:$viewValue | limitTo:30" />
 					<div class="popover fade bottom in popup-location-error" role="tooltip" ng-style="{'opacity': search.location == 'x' ? '1': '0', 'display': locationInputFocus || search.location == 'x' ? 'block' : 'none'}">
 						<div class="arrow" style="left: 50%;"></div>
-						<div class="popover-content">Enter Philippine city or town</div>
+						<div class="popover-content">Enter Philippine city or town, province</div>
 					</div>
 				</div>
 			</div>
@@ -159,6 +159,6 @@
 
 <!-- Go to top -->
 
-<div class="container-fluid go-to-top" ng-class="{'whiteframe-z1': goTo}" ng-mouseover="goTo = true" ng-mouseout="goTo = false" ng-click="goToTop()">
+<div class="container-fluid go-to-top" ng-class="{'whiteframe-z1': goTo}" ng-mouseover="goTo = true" ng-mouseleave="goTo = false" ng-click="goToTop()">
 	<span class="glyphicon glyphicon-chevron-up"></span>
 </div>

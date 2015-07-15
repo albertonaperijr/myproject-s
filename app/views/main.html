@@ -68,4 +68,358 @@
 	<br />
 	<br />
 	<!-- <user-tile user="user1"></user-tile> -->
+
+
+
+		<div class="x">
+			<div class="visible-sm visible-xs search-options-filter">
+				<div class="btn-group btn-group-sm">
+					<button class="btn btn-primary dropdown-toggle btn-block" ng-class="{}" data-toggle="dropdown" aria-expanded="false">
+						<small class="pull-left">
+							<small>{{selectedSearchTypeTitle}}</small>
+							&nbsp;
+							<span class="caret"></span>
+						</small>
+					</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header bold">Classification</li>
+						<li ng-class="{'active': !selectedSearchTypeId, 'bold': !selectedSearchTypeId}" ng-click="setSearchType()"><a href="">All Classifications</a></li>
+						<li ng-repeat="searchType in searchType" ng-class="{'active': searchType.id == selectedSearchTypeId, 'bold': searchType.id == selectedSearchTypeId}" ng-click="setSearchType(searchType)"><a href="">{{searchType.description}}</a></li>
+					</ul>
+				</div>
+				<div class="btn-group btn-group-sm">
+					<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						<small class="pull-left">
+							<small>{{selectedCategoryName}}</small>
+							&nbsp;
+							<span class="caret text-right"></span>
+						</small>
+					</button>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header bold">Category</li>
+						<li ng-class="{'active': !selectedCategoryId, 'bold': !selectedCategoryId}" ng-click="setCfgCategory()"><a href="">All Categories</a></li>
+						<li ng-repeat="cfgCategory in lstCfgcategory" ng-class="{'active': cfgCategory.pkCfgCategoryId == selectedCategoryId, 'bold': cfgCategory.pkCfgCategoryId == selectedCategoryId}" ng-click="setCfgCategory(cfgCategory)"><a href="">{{cfgCategory.cfgCategoryName}}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+			<!-- Service Packages -->
+
+			<div class="panel panel-default search-results whiteframe-z0" ng-class="{'opacity1': selectedSearchTypeId == 2 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 2}">
+				<div class="panel-heading">
+					<strong>Service Packages</strong>
+					<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 2">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesServicePackage}}</strong>
+				</div>
+				<div class="panel-body cursor-pointer" ng-repeat="ServicePackage in lstServicePackageResult | startFrom: ((routeParams.page ? routeParams.page : 1) - 1) * 10 | limitTo: selectedSearchTypeId ? 10 : 5" ng-class="{'sponsored-body': $index == 0}" ng-click="showModal()">
+					<div class="thumbnail">
+						<img ng-src="{{ServicePackage.thumbnail || 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="Service Package" style="width: 100%" />
+					</div>
+					<div class="search-content">
+						<div class="content">
+							<h6 class="text-nowrap"><strong>{{ServicePackage.toolName}}</strong></h6>
+							<div ng-show="ServicePackage.fkEmployeeId || ServicePackage.isNonIndividualPost || ServicePackage.cfgServicePriority == 1"><strong><small>{{ServicePackage.companyName}}</small></strong></div>
+							<div class="text-justify hidden-xs"><small>{{ServicePackage.toolDescription | limitTo: 250}}<span ng-if="ServicePackage.toolDescription.length >= 250">...</span></small></div>
+							<div class="text-justify visible-xs"><small>{{ServicePackage.toolDescription | limitTo: 100}}<span ng-if="ServicePackage.toolDescription.length >= 100">...</span></small></div>
+						</div>
+						<div class="content">
+							<h6 class="text-nowrap">
+								<strong>
+									{{ServicePackage.rentPrice | currency: '&#8369; '}}
+									<span ng-repeat="unit in priceUnit" ng-if="unit.id == ServicePackage.rentUnit">
+										{{unit.description}}
+									</span>
+								</strong>
+							</h6>
+							<small>{{ServicePackage.barangayName}}, {{ServicePackage.citytownName}}, {{ServicePackage.stateprovinceName}}</small>
+						</div>
+					</div>
+					<div class="sponsored-container" ng-show="$index == 0">
+						<small class="sponsored">Sponsored</small>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			<div class="text-center" ng-hide="selectedSearchTypeId">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="browseMore('Service Packages')">
+					Browse more service packages
+				</button>
+				<div class="clearfix"></div>
+				<br />
+				<br />
+			</div>
+
+			<!-- Pagination for Service Package -->
+
+			<div class="text-center" ng-show="selectedSearchTypeId == 2 && numPagesServicePackage > 1">
+	            <pagination total-items="lstServicePackageResult.length"
+	            			ng-model="pageServicePackage"
+	                        ng-click="pageChangeServicePackage()"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="10"
+	                        class="pagination-sm whiteframe-z1 hidden-xs"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesServicePackage">
+	            </pagination>
+	            <div class="clearfix"></div>
+	            <pagination total-items="lstServicePackageResult.length"
+	            			ng-model="pageServicePackage"
+	                        ng-click="pageChangeServicePackage()"
+	                        ng-show="viewportWidth < 768"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="5"
+	                        class="pagination-sm whiteframe-z1"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesServicePackage">
+	            </pagination>
+            </div>
+
+            <!-- Service Providers -->
+
+			<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 1 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 1}">
+				<div class="panel-heading">
+					<strong>Service Providers</strong>
+					<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 1">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesForRent}}</strong>
+				</div>
+				<div class="panel-body cursor-pointer" ng-repeat="Service in lstServiceResult | startFrom: ((routeParams.page ? routeParams.page : 1) - 1) * 10 | limitTo: selectedSearchTypeId ? 10 : 5" ng-class="{'sponsored-body': $index == 0}">
+					<div class="thumbnail">
+						<img ng-src="{{Service.profilePicture}}" ng-show="Service.profilePicture && !Service.employeePicture" class="img-responsive" alt="Service Display Profile Picture" style="width: 100%" />
+						<img ng-src="{{(!Service.fkEmployeeId && !Service.isNonIndividualPost && Service.cfgServicePriority == 0) ? 'images/serbisyo-icons/no-profile-picture.png' : ((Service.employeePicture) ? Service.employeePicture : 'images/serbisyo-icons/company-logo-default.png')}}" ng-hide="Service.profilePicture && !Service.employeePicture" class="img-responsive" alt="Service Display Picture" style="width: 100%" />
+					</div>
+					<div class="search-content">
+						<div class="content">
+							<h6 class="text-nowrap"><strong>{{Service.serviceTitle}}</strong></h6>
+							<div ng-show="Service.fkEmployeeId || Service.isNonIndividualPost || Service.cfgServicePriority == 1"><strong><small>{{Service.companyName}}</small></strong></div>
+							<div class="text-justify hidden-xs"><small>{{Service.serviceDescription | limitTo: 250}}<span ng-if="Service.serviceDescription.length >= 250">...</span></small></div>
+							<div class="text-justify visible-xs"><small>{{Service.serviceDescription | limitTo: 100}}<span ng-if="Service.serviceDescription.length >= 100">...</span></small></div>
+							<div class="text-justify"><strong><small>{{Service.cfgServiceName}}</small></strong></div>
+						</div>
+						<div class="content">
+							<h6 class="text-nowrap">
+								<strong>
+									<span ng-show="Service.servicePrice == 0 && !Service.isNonIndividualPost">Free</span>
+									<span ng-show="Service.servicePrice == -1 && !Service.isNonIndividualPost">Call me for quotation</span>
+									<span ng-repeat="unit in priceUnit" ng-if="unit.id == Service.serviceUnit && !Service.isNonIndividualPost && Service.servicePrice > 0">
+										{{Service.servicePrice | currency: '&#8369; '}} {{unit.description}}
+									</span>
+								</strong>
+							</h6>
+							<small>{{Service.barangayName}}, {{Service.citytownName}}, {{Service.stateprovinceName}}</small>
+						</div>
+					</div>
+					<div class="sponsored-container" ng-show="$index == 0">
+						<small class="sponsored">Sponsored</small>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			<div class="text-center" ng-hide="selectedSearchTypeId">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="browseMore('Service Providers')">
+					Browse more service providers
+				</button>
+				<div class="clearfix"></div>
+				<br />
+				<br />
+			</div>
+
+			<!-- Pagination for Service Provider -->
+
+			<div class="text-center" ng-show="selectedSearchTypeId == 1 && numPagesServiceProvider > 1">
+	            <pagination total-items="lstServiceResult.length"
+	            			ng-model="pageServiceProvider"
+	                        ng-click="pageChangeServiceProvider()"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="10"
+	                        class="pagination-sm whiteframe-z1 hidden-xs"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesServiceProvider">
+	            </pagination>
+	            <div class="clearfix"></div>
+	            <pagination total-items="lstServiceResult.length"
+	            			ng-model="pageServiceProvider"
+	                        ng-click="pageChangeServiceProvider()"
+	                        ng-show="viewportWidth < 768"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="5"
+	                        class="pagination-sm whiteframe-z1"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesServiceProvider">
+	            </pagination>
+            </div>
+
+            <!-- For Rent -->
+
+			<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 3 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 3}">
+				<div class="panel-heading">
+					<strong>For Rent Only</strong>
+					<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 3">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesServiceProvider}}</strong>
+				</div>
+				<div class="panel-body cursor-pointer" ng-repeat="ForRent in lstForRentResult | startFrom: ((routeParams.page ? routeParams.page : 1) - 1) * 10 | limitTo: selectedSearchTypeId ? 10 : 5" ng-class="{'sponsored-body': $index == 0}">
+					<div class="thumbnail">
+						<img ng-src="{{ForRent.thumbnail || 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="For Rent" style="width: 100%" />
+					</div>
+					<div class="search-content">
+						<div class="content">
+							<h6 class="text-nowrap"><strong>{{ForRent.toolName}}</strong></h6>
+							<div ng-show="ForRent.fkEmployeeId || ForRent.isNonIndividualPost || ForRent.cfgServicePriority == 1"><strong><small>{{ForRent.companyName}}</small></strong></div>
+							<div class="text-justify hidden-xs"><small>{{ForRent.toolDescription | limitTo: 250}}<span ng-if="ForRent.toolDescription.length >= 250">...</span></small></div>
+							<div class="text-justify visible-xs"><small>{{ForRent.toolDescription | limitTo: 100}}<span ng-if="ForRent.toolDescription.length >= 100">...</span></small></div>
+						</div>
+						<div class="content">
+							<h6 class="text-nowrap">
+								<strong>
+									{{ForRent.rentPrice | currency: '&#8369; '}}
+									<span ng-repeat="unit in priceUnit" ng-if="unit.id == ForRent.rentUnit">
+										{{unit.description}}
+									</span>
+								</strong>
+							</h6>
+							<small>{{ForRent.barangayName}}, {{ForRent.citytownName}}, {{ForRent.stateprovinceName}}</small>
+						</div>
+					</div>
+					<div class="sponsored-container" ng-show="$index == 0">
+						<small class="sponsored">Sponsored</small>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+			<div class="text-center" ng-hide="selectedSearchTypeId">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="browseMore('For Rent')">
+					Browse more for rent
+				</button>
+				<div class="clearfix"></div>
+				<br />
+				<br />
+			</div>
+
+			<!-- Pagination for For Rent -->
+
+			<div class="text-center" ng-show="selectedSearchTypeId == 3 && numPagesForRent > 1">
+	            <pagination total-items="lstForRentResult.length"
+	            			ng-model="pageForRent"
+	                        ng-click="pageChangeForRent()"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="10"
+	                        class="pagination-sm whiteframe-z1 hidden-xs"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesForRent">
+	            </pagination>
+	            <div class="clearfix"></div>
+	            <pagination total-items="lstForRentResult.length"
+	            			ng-model="pageForRent"
+	                        ng-click="pageChangeForRent()"
+	                        ng-show="viewportWidth < 768"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="5"
+	                        class="pagination-sm whiteframe-z1"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesForRent">
+	            </pagination>
+            </div>
+
+            <!-- Job Opening -->
+
+			<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 4 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 4}">
+				<div class="panel-heading">
+					<strong>Job Openings</strong>
+					<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 4">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesJobOpening}}</strong>
+				</div>
+				<div class="panel-body job-opening-body cursor-pointer" ng-repeat="JobOpening in lstJobOpeningResult | startFrom: ((routeParams.page ? routeParams.page : 1) - 1) * 10 | limitTo: selectedSearchTypeId ? 10 : 5" ng-class="{'sponsored-body': JobOpening.jobpostDescription}">
+					<div class="job-opening">
+						<div class="content-title text-nowrap">
+							<strong>{{JobOpening.jobpostTitle}}</strong>
+						</div>
+						<div class="content-address text-nowrap">
+							{{JobOpening.barangayName}}, {{JobOpening.citytownName}}, {{JobOpening.stateprovinceName}}
+						</div>
+						<div class="content-date text-right">
+							<small>{{JobOpening.creationDate | date: 'dd MMM yyyy'}}</small>
+						</div>
+						<div class="sponsored-container" ng-show="JobOpening.jobpostDescription">
+							<small class="sponsored">Sponsored</small>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="text-center" ng-hide="selectedSearchTypeId">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="browseMore('Job Openings')">
+					Browse more job openings
+				</button>
+				<div class="clearfix"></div>
+				<br />
+				<br />
+			</div>
+
+			<!-- Pagination for Job Opening -->
+
+			<div class="text-center" ng-show="selectedSearchTypeId == 4 && numPagesJobOpening > 1">
+	            <pagination total-items="lstJobOpeningResult.length"
+	            			ng-model="pageJobOpening"
+	                        ng-click="pageChangeJobOpening()"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="10"
+	                        class="pagination-sm whiteframe-z1 hidden-xs"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesJobOpening">
+	            </pagination>
+	            <div class="clearfix"></div>
+	            <pagination total-items="lstJobOpeningResult.length"
+	            			ng-model="pageJobOpening"
+	                        ng-click="pageChangeJobOpening()"
+	                        ng-show="viewportWidth < 768"
+	                        items-per-page="10"
+	                        previous-text="&lsaquo;"
+	                        next-text="&rsaquo;"
+	                        first-text="&laquo;"
+	                        last-text="&raquo;"
+	                        max-size="5"
+	                        class="pagination-sm whiteframe-z1"
+	                        boundary-links="true"
+	                        rotate="false"
+	                        num-pages="numPagesJobOpening">
+	            </pagination>
+            </div>
+
+            <div class="clearfix"></div>
+		</div>
 </div>

@@ -25,6 +25,13 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 }]);
 
 app.run(['$rootScope', function($rootScope) {
+  
+  toastr.options = {
+    closeButton: true,
+    preventDuplicates: true,
+    tapToDismiss: true,
+    positionClass: 'toast-bottom-right'
+  };
 
   $rootScope.months = [
   {id: 1, description: 'January'},

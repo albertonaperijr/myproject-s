@@ -16,9 +16,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 			$scope.pageServiceProvider = 1;
 			$scope.pageForRent = 1;
 			$scope.pageJobOpening = 1;
-			toastr.info('no');
 		} else {
-			toastr.info('yes');
 			for (var i = $rootScope.searchType.length - 1; i >= 0; i--) {
 				if ($scope.routeParams.classification.split('-').join(' ') == $rootScope.searchType[i].description.toLowerCase()) {
 					$scope.selectedSearchTypeId = $rootScope.searchType[i].id;
@@ -53,6 +51,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 		}
 
 		$scope.setSearchType = function(searchType) {
+			toastr.info($scope.selectedSearchTypeId);
 			if (searchType) {
 				$window.location.href = '#/search?'
 					+ 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all')
@@ -143,7 +142,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 			var modalInstance = $modal.open({
                 templateUrl: 'views/dialogs/dialog.html',
                 controller: 'ConfirmDialogCtrl',
-                size: 'lg'
+                size: 'sm'
             });
             modalInstance.result.then(function() {
                 

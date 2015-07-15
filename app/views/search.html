@@ -16,14 +16,14 @@
 					<div class="col-lg-12">
 						<div class="radio input-sm">
 							<label ng-click="setSearchType()">
-								<input type="radio" name="classification" ng-checked="!selectedSearchTypeId" />
+								<input type="radio" name="classification" value="" />
 								All Classifications
 							</label>
 						</div>
 						<div class="radio input-sm" ng-repeat="searchType in searchType">
 							<label ng-click="setSearchType(searchType)">
-								<input type="radio" name="classification" ng-checked="searchType.id == selectedSearchTypeId" />
-								{{searchType.description}}
+								<input type="radio" name="classification" checked="checked" ng-model="selectedSearchTypeId" ng-value="searchType.id" />
+								{{searchType.description}} xx {{searchType.id}} yy {{selectedSearchTypeId}}
 							</label>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 			<div class="visible-sm visible-xs search-options-filter">
 				<div class="btn-group btn-group-sm">
-					<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<button class="btn btn-primary dropdown-toggle btn-block" ng-class="{}" data-toggle="dropdown" aria-expanded="false">
 						<small class="pull-left">
 							<small>{{selectedSearchTypeTitle}}</small>
 							&nbsp;
