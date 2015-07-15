@@ -1,10 +1,16 @@
 'use strict';
 
-app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout',
-	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout) {
+app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout', 'toastr',
+	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout, toastr) {
 
-		var url;
 		$scope.routeParams = $routeParams;
+		var classification = 'classification=' + $scope.routeParams.classification;
+		var category = '&category=' + $scope.routeParams.category;
+		var location = '&location=' + $scope.routeParams.location;
+		var keyword = $scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '';
+		var page = $scope.routeParams.page ? '&page=' + $scope.routeParams.page : '';
+		var targetUrl;
+
 		$timeout(function() {
 			$('html, body').animate({scrollTop: 0}, 100);
 		}, 300);
@@ -12,7 +18,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 		if ($scope.routeParams.classification == 'all') {
 			$scope.selectedSearchTypeId = '';
 			$scope.selectedSearchTypeTitle = 'All Classifications';
-			// $scope.routeParams.page = 1;
+			$scope.routeParams.page = 1;
 			$scope.pageServicePackage = 1;
 			$scope.pageServiceProvider = 1;
 			$scope.pageForRent = 1;
@@ -31,7 +37,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 				$scope.pageForRent = $scope.routeParams.page;
 				$scope.pageJobOpening = $scope.routeParams.page;
 			} else {
-				// $scope.routeParams.page = 1;
+				$scope.routeParams.page = 1;
 				$scope.pageServicePackage = 1;
 				$scope.pageServiceProvider = 1;
 				$scope.pageForRent = 1;
@@ -51,113 +57,73 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 			};
 		}
 
-		$timeout(function() {
-			if ($scope.routeParams.classification == 'all') {
-				$('#classification0').click();
-			} else {
-				$('#classification' + $scope.selectedSearchTypeId).click();
-			}
-			if ($scope.routeParams.category == 'all') {
-				$('#category0').click();
-			} else {
-				$('#category' + $scope.selectedCategoryId).click();
-			}
-		}, 3000);
-
 		$scope.setSearchType = function(searchType) {
 			if (searchType) {
-				$rootScope.destinationUrlPath = '/search?'
-					+ 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all')
-					+ '&category=' + $scope.routeParams.category
-					+ '&location=' + $scope.routeParams.location
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=1';
+				classification = 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all');
 			} else {
-				$rootScope.destinationUrlPath = '/search?'
-					+ 'classification=all'
-					+ '&category=' + $scope.routeParams.category
-					+ '&location=' + $scope.routeParams.location
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '');
+				classification = 'classification=all';
 			}
-			if ($rootScope.destinationUrlPath != $rootScope.urlPath) {
-				$window.location.href = '#' + $rootScope.destinationUrlPath;
-			}
+			page = searchType ? '&page=1' : '';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
 		};
 
 		$scope.setCfgCategory = function(cfgCategory) {
 			if (cfgCategory) {
-				$rootScope.destinationUrlPath = '/search?'
-					+ 'classification=' + $scope.routeParams.classification
-					+ '&category=' + (cfgCategory.cfgCategoryName ? cfgCategory.cfgCategoryName.split(' ').join('-').toLowerCase() : 'all')
-					+ '&location=' + $scope.routeParams.location
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ ($scope.routeParams.classification == 'all') ? '' : '&page=1';
+				category = '&category=' + (cfgCategory.cfgCategoryName ? cfgCategory.cfgCategoryName.split(' ').join('-').toLowerCase() : 'all');
 			} else {
-				$rootScope.destinationUrlPath = '/search?'
-					+ 'classification=' + $scope.routeParams.classification
-					+ '&category=all'
-					+ '&location=' + $scope.routeParams.location
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ ($scope.routeParams.classification == 'all') ? '' : '&page=1';
+				category = '&category=all';
 			}
-			toastr.info($rootScope.destinationUrlPath);
-			if ($rootScope.destinationUrlPath != $rootScope.urlPath) {
-				toastr.info('yes');
-				$window.location.href = '#' + $rootScope.destinationUrlPath;
-			}
+			page = ($scope.routeParams.classification == 'all') ? '' : '&page=1';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
 		};
 
 		$scope.pageChangeServicePackage = function() {
 			if ($scope.routeParams.page != $scope.pageServicePackage) {
-				$window.location.href = '#/search?'
-				+ 'classification=' + $scope.routeParams.classification
-				+ '&category=' + $scope.routeParams.category
-				+ '&location=' + $scope.routeParams.location
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-				+ '&page=' + $scope.pageServicePackage;
+				page = '&page=' + $scope.pageServicePackage;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeServiceProvider = function() {
 			if ($scope.routeParams.page != $scope.pageServiceProvider) {
-				$window.location.href = '#/search?'
-				+ 'classification=' + $scope.routeParams.classification
-				+ '&category=' + $scope.routeParams.category
-				+ '&location=' + $scope.routeParams.location
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageServiceProvider;
+				page = '&page=' + $scope.pageServiceProvider;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeForRent = function() {
 			if ($scope.routeParams.page != $scope.pageForRent) {
-				$window.location.href = '#/search?'
-				+ 'classification=' + $scope.routeParams.classification
-				+ '&category=' + $scope.routeParams.category
-				+ '&location=' + $scope.routeParams.location
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageForRent;
+				page = '&page=' + $scope.pageForRent;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.pageChangeJobOpening = function() {
 			if ($scope.routeParams.page != $scope.pageJobOpening) {
-				$window.location.href = '#/search?'
-				+ 'classification=' + $scope.routeParams.classification
-				+ '&category=' + $scope.routeParams.category
-				+ '&location=' + $scope.routeParams.location
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-				+ '&page=' + $scope.pageJobOpening;
+				page = '&page=' + $scope.pageJobOpening;
+				targetUrl = '#/search?' + classification + category + location + keyword + page;
+				$window.location.href = targetUrl;
 			}
 		};
 
 		$scope.browseMore = function(searchType) {
-			$window.location.href = '#/search?'
-				+ 'classification=' + searchType.split(' ').join('-').toLowerCase()
-				+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-				+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-				+ '&page=1';
+			classification = 'classification=' + searchType.split(' ').join('-').toLowerCase();
+			page = '&page=1';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
+		};
+
+		$scope.showMoreCategory = function() {
+			$scope.limitCategory = $rootScope.lstCfgcategory.length;
+		};
+
+		$scope.showLessCategory = function() {
+			$scope.limitCategory = 10;
 		};
 
 		$scope.showModal = function() {
@@ -172,22 +138,5 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 
 			});
 		};
-
-		function scrollTo(targetId) {
-			var topOffset;
-			var destination;
-			if (viewportWidth > 991) {
-				topOffset = 146;
-			} else {
-				topOffset = 80;
-			}
-			setTimeout(function() {
-				destination = $(targetId).offset().top - topOffset;
-				$('html, body').animate({scrollTop: destination}, 300);
-				setTimeout(function() {
-					$(targetId).focus();
-				}, 300);
-			}, 300);
-		}
 
 	}]);

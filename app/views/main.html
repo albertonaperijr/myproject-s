@@ -2,9 +2,9 @@
 
 <!-- Main Page -->
 
-<div class="container">
-	<div class="content-container whiteframe-z0">
-		<h1>z0</h1>
+<div class="container-fluid">
+	<div class="content-container whiteframe-z1">
+		<h1>z1</h1>
 		<p>
 			<a href="#" class="btn-flat btn-default">Default</a>
 			<a href="#" class="btn-flat btn-primary">Primary</a>
@@ -24,8 +24,8 @@
 		</p>
 	</div>
 	<br />
-	<div class="content-container whiteframe-z1">
-		<h1>z1</h1>
+	<div class="content-container whiteframe-z2">
+		<h1>z2</h1>
 		<hr />
 		<h4>Popovers</h4>
 		<div class="bs-component">
@@ -46,10 +46,6 @@
 		</p>
 	</div>
 	<br />
-	<div class="content-container whiteframe-z2">
-		<h1>z2</h1>
-	</div>
-	<br />
 	<div class="content-container whiteframe-z3">
 		<h1>z3</h1>
 	</div>
@@ -66,46 +62,19 @@
 		<h1>z6</h1>
 	</div>
 	<br />
+	<div class="content-container whiteframe-z7">
+		<h1>z7</h1>
+	</div>
+	<br />
 	<br />
 	<!-- <user-tile user="user1"></user-tile> -->
 </div>
 
 <div class="container-fluid">
-	<div class="visible-sm visible-xs search-options-filter">
-		<div class="btn-group btn-group-sm">
-			<button class="btn btn-primary dropdown-toggle btn-block" ng-class="{}" data-toggle="dropdown" aria-expanded="false">
-				<small class="pull-left">
-					<small>{{selectedSearchTypeTitle}}</small>
-					&nbsp;
-					<span class="caret"></span>
-				</small>
-			</button>
-			<ul class="dropdown-menu">
-				<li class="dropdown-header bold">Classification</li>
-				<li ng-class="{'active': !selectedSearchTypeId, 'bold': !selectedSearchTypeId}" ng-click="setSearchType()"><a href="">All Classifications</a></li>
-				<li ng-repeat="searchType in searchType" ng-class="{'active': searchType.id == selectedSearchTypeId, 'bold': searchType.id == selectedSearchTypeId}" ng-click="setSearchType(searchType)"><a href="">{{searchType.description}}</a></li>
-			</ul>
-		</div>
-		<div class="btn-group btn-group-sm">
-			<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-				<small class="pull-left">
-					<small>{{selectedCategoryName}}</small>
-					&nbsp;
-					<span class="caret text-right"></span>
-				</small>
-			</button>
-			<ul class="dropdown-menu">
-				<li class="dropdown-header bold">Category</li>
-				<li ng-class="{'active': !selectedCategoryId, 'bold': !selectedCategoryId}" ng-click="setCfgCategory()"><a href="">All Categories</a></li>
-				<li ng-repeat="cfgCategory in lstCfgcategory" ng-class="{'active': cfgCategory.pkCfgCategoryId == selectedCategoryId, 'bold': cfgCategory.pkCfgCategoryId == selectedCategoryId}" ng-click="setCfgCategory(cfgCategory)"><a href="">{{cfgCategory.cfgCategoryName}}</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="clearfix"></div>
 
 	<!-- Service Packages -->
 
-	<div class="panel panel-default search-results whiteframe-z0" ng-class="{'opacity1': selectedSearchTypeId == 2 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 2}">
+	<div class="panel panel-default serbisyo-ads whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 2 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 2}">
 		<div class="panel-heading">
 			<strong>Service Packages</strong>
 			<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 2">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesServicePackage}}</strong>
@@ -114,7 +83,7 @@
 			<div class="thumbnail">
 				<img ng-src="{{ServicePackage.thumbnail || 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="Service Package" style="width: 100%" />
 			</div>
-			<div class="search-content">
+			<div class="serbisyo-ads-content">
 				<div class="content">
 					<h6 class="text-nowrap"><strong>{{ServicePackage.toolName}}</strong></h6>
 					<div ng-show="ServicePackage.fkEmployeeId || ServicePackage.isNonIndividualPost || ServicePackage.cfgServicePriority == 1"><strong><small>{{ServicePackage.companyName}}</small></strong></div>
@@ -149,7 +118,7 @@
 		<br />
 	</div>
 
-	<!-- Pagination for Service Package -->
+	<!-- Pagination for Service Packages -->
 
 	<div class="text-center" ng-show="selectedSearchTypeId == 2 && numPagesServicePackage > 1">
         <pagination total-items="lstServicePackageResult.length"
@@ -186,7 +155,7 @@
 
     <!-- Service Providers -->
 
-	<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 1 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 1}">
+	<div class="panel panel-default serbisyo-ads whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 1 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 1}">
 		<div class="panel-heading">
 			<strong>Service Providers</strong>
 			<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 1">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesForRent}}</strong>
@@ -196,7 +165,7 @@
 				<img ng-src="{{Service.profilePicture}}" ng-show="Service.profilePicture && !Service.employeePicture" class="img-responsive" alt="Service Display Profile Picture" style="width: 100%" />
 				<img ng-src="{{(!Service.fkEmployeeId && !Service.isNonIndividualPost && Service.cfgServicePriority == 0) ? 'images/serbisyo-icons/no-profile-picture.png' : ((Service.employeePicture) ? Service.employeePicture : 'images/serbisyo-icons/company-logo-default.png')}}" ng-hide="Service.profilePicture && !Service.employeePicture" class="img-responsive" alt="Service Display Picture" style="width: 100%" />
 			</div>
-			<div class="search-content">
+			<div class="serbisyo-ads-content">
 				<div class="content">
 					<h6 class="text-nowrap"><strong>{{Service.serviceTitle}}</strong></h6>
 					<div ng-show="Service.fkEmployeeId || Service.isNonIndividualPost || Service.cfgServicePriority == 1"><strong><small>{{Service.companyName}}</small></strong></div>
@@ -233,7 +202,7 @@
 		<br />
 	</div>
 
-	<!-- Pagination for Service Provider -->
+	<!-- Pagination for Service Providers -->
 
 	<div class="text-center" ng-show="selectedSearchTypeId == 1 && numPagesServiceProvider > 1">
         <pagination total-items="lstServiceResult.length"
@@ -270,7 +239,7 @@
 
     <!-- For Rent -->
 
-	<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 3 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 3}">
+	<div class="panel panel-default serbisyo-ads whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 3 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 3}">
 		<div class="panel-heading">
 			<strong>For Rent Only</strong>
 			<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 3">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesServiceProvider}}</strong>
@@ -279,7 +248,7 @@
 			<div class="thumbnail">
 				<img ng-src="{{ForRent.thumbnail || 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="For Rent" style="width: 100%" />
 			</div>
-			<div class="search-content">
+			<div class="serbisyo-ads-content">
 				<div class="content">
 					<h6 class="text-nowrap"><strong>{{ForRent.toolName}}</strong></h6>
 					<div ng-show="ForRent.fkEmployeeId || ForRent.isNonIndividualPost || ForRent.cfgServicePriority == 1"><strong><small>{{ForRent.companyName}}</small></strong></div>
@@ -349,9 +318,9 @@
         </pagination>
     </div>
 
-    <!-- Job Opening -->
+    <!-- Job Openings -->
 
-	<div class="panel panel-default search-results whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 4 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 4}">
+	<div class="panel panel-default serbisyo-ads whiteframe-z1" ng-class="{'opacity1': selectedSearchTypeId == 4 || !selectedSearchTypeId, 'opacity0': selectedSearchTypeId != 4}">
 		<div class="panel-heading">
 			<strong>Job Openings</strong>
 			<strong class="pull-right" ng-show="routeParams.page && selectedSearchTypeId == 4">Page <span class="current-page">{{routeParams.page}}</span> of {{numPagesJobOpening}}</strong>
@@ -384,7 +353,7 @@
 		<br />
 	</div>
 
-	<!-- Pagination for Job Opening -->
+	<!-- Pagination for Job Openings -->
 
 	<div class="text-center" ng-show="selectedSearchTypeId == 4 && numPagesJobOpening > 1">
         <pagination total-items="lstJobOpeningResult.length"

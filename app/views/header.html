@@ -13,6 +13,9 @@
 			</button>
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="">Post free Ad</a></li>
+			</ul>
 			<ul class="nav navbar-nav" ng-show="loggedIn" ng-class="{'visible-xs': loggedIn}">
 				<li ng-class="{'active': path == '/mydashboard'}">
 					<a href="#/mydashboard">
@@ -46,33 +49,32 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right hidden-xs">
-				<li><a href="">Post free Ad</a></li>
 				<li class="dropdown" ng-show="loggedIn">
-					<a class="dropdown-toggle" data-toggle="dropdown" href=a"#" id="menu">
-						Pangit 
+					<a class="dropdown-toggle" data-toggle="dropdown" href="" id="menu">
+						Pangit
 						&nbsp;
 						<img src="images/serbisyo-icons/no-profile-picture.png" alt="user-image" class="nav-image" />
-						<span class="caret"></span>
+						<i class="fa fa-angle-down fa-lg "></i>
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="menu">
 						<li ng-class="{'active': path == '/mydashboard'}">
 							<a href="#/mydashboard">
-								<span class="glyphicon glyphicon-user"></span>
+								<i class="fa fa-user"></i>
 								&nbsp;
 								My Dashboard
 							</a>
 						</li>
 						<li class="divider"></li>
-						<li ng-class="{'active': path == '/settings'}">
+						<li ng-class="{'active': path == '/settings'}" ng-mouseover="settingsHover = true" ng-mouseleave="settingsHover = false">
 							<a href="#/settings">
-								<span class="glyphicon glyphicon-cog"></span>
+								<i class="fa fa-cog" ng-class="{'fa-spin': settingsHover}"></i>
 								&nbsp;
 								Settings
 							</a>
 						</li>
 						<li ng-class="{'active': path == '/multilogin'}">
 							<a href="#/multilogin">
-								<span class="glyphicon glyphicon-th-list"></span>
+								<i class="fa fa-list-ul"></i>
 								&nbsp;
 								Multi Login
 							</a>
@@ -80,7 +82,7 @@
 						<li class="divider"></li>
 						<li ng-class="{'active': path == '/logout'}" ng-click="logout()">
 							<a href="">
-								<span class="glyphicon glyphicon-off"></span>
+								<i class="fa fa-sign-out"></i>
 								&nbsp;
 								Logout
 							</a>
@@ -92,10 +94,41 @@
 						Sign in | Sign up
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="login">
-						<li ng-click="login()"><a href="">Facebook</a></li>
-						<li ng-click="login()"><a href="">Twitter</a></li>
-						<li ng-click="login()"><a href="">Gmail</a></li>
-						<li ng-click="login()"><a href="">LinkedIn</a></li>
+						<li ng-click="login()">
+							<a href="">
+								<i class="fa fa-facebook"></i>
+								&nbsp;
+								Facebook
+							</a>
+						</li>
+						<li ng-click="login()">
+							<a href="">
+								<i class="fa fa-twitter"></i>
+								&nbsp;
+								Twitter
+							</a>
+						</li>
+						<li ng-click="login()">
+							<a href="">
+								<i class="fa fa-google"></i>
+								&nbsp;
+								Gmail
+							</a>
+						</li>
+						<li ng-click="login()">
+							<a href="">
+								<i class="fa fa-linkedin"></i>
+								&nbsp;
+								LinkedIn
+							</a>
+						</li>
+						<li ng-click="login()">
+							<a href="">
+								<i class="fa fa-yahoo"></i>
+								&nbsp;
+								Yahoo
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>
