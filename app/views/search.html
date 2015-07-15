@@ -16,14 +16,14 @@
 					<div class="col-lg-12">
 						<div class="radio input-sm">
 							<label ng-click="setSearchType()">
-								<input type="radio" name="classification" value="" />
+								<input type="radio" name="classification" id="classification0" />
 								All Classifications
 							</label>
 						</div>
 						<div class="radio input-sm" ng-repeat="searchType in searchType">
 							<label ng-click="setSearchType(searchType)">
-								<input type="radio" name="classification" checked="checked" ng-model="selectedSearchTypeId" ng-value="searchType.id" />
-								{{searchType.description}} xx {{searchType.id}} yy {{selectedSearchTypeId}}
+								<input type="radio" name="classification" id="classification{{searchType.id}}" />
+								{{searchType.description}}
 							</label>
 						</div>
 					</div>
@@ -44,13 +44,13 @@
 						</div>
 						<div class="radio input-sm">
 							<label ng-click="setCfgCategory()">
-								<input type="radio" name="category" ng-checked="!selectedCategoryId" />
+								<input type="radio" name="category" id="category0" />
 								All Categories
 							</label>
 						</div>
 						<div class="radio input-sm" ng-repeat="cfgCategory in lstCfgcategory">
 							<label ng-click="setCfgCategory(cfgCategory)">
-								<input type="radio" name="category" ng-checked="cfgCategory.pkCfgCategoryId == selectedCategoryId" />
+								<input type="radio" name="category" id="category{{cfgCategory.pkCfgCategoryId}}" />
 								{{cfgCategory.cfgCategoryName}}
 							</label>
 						</div>

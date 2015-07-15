@@ -1,17 +1,18 @@
 'use strict';
 
-app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window', '$modal',
-	function($rootScope, $scope, $routeParams, $window, $modal) {
+app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout',
+	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout) {
 
+		var url;
 		$scope.routeParams = $routeParams;
-		setTimeout(function() {
+		$timeout(function() {
 			$('html, body').animate({scrollTop: 0}, 100);
 		}, 300);
 
 		if ($scope.routeParams.classification == 'all') {
 			$scope.selectedSearchTypeId = '';
 			$scope.selectedSearchTypeTitle = 'All Classifications';
-			$scope.routeParams.page = 1;
+			// $scope.routeParams.page = 1;
 			$scope.pageServicePackage = 1;
 			$scope.pageServiceProvider = 1;
 			$scope.pageForRent = 1;
@@ -30,7 +31,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 				$scope.pageForRent = $scope.routeParams.page;
 				$scope.pageJobOpening = $scope.routeParams.page;
 			} else {
-				$scope.routeParams.page = 1;
+				// $scope.routeParams.page = 1;
 				$scope.pageServicePackage = 1;
 				$scope.pageServiceProvider = 1;
 				$scope.pageForRent = 1;
@@ -50,59 +51,80 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 			};
 		}
 
+		$timeout(function() {
+			if ($scope.routeParams.classification == 'all') {
+				$('#classification0').click();
+			} else {
+				$('#classification' + $scope.selectedSearchTypeId).click();
+			}
+			if ($scope.routeParams.category == 'all') {
+				$('#category0').click();
+			} else {
+				$('#category' + $scope.selectedCategoryId).click();
+			}
+		}, 3000);
+
 		$scope.setSearchType = function(searchType) {
-			toastr.info($scope.selectedSearchTypeId);
 			if (searchType) {
-				$window.location.href = '#/search?'
+				$rootScope.destinationUrlPath = '/search?'
 					+ 'classification=' + (searchType.description ? searchType.description.split(' ').join('-').toLowerCase() : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
+					+ '&category=' + $scope.routeParams.category
+					+ '&location=' + $scope.routeParams.location
 					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
 					+ '&page=1';
 			} else {
-				$window.location.href = '#/search?'
+				$rootScope.destinationUrlPath = '/search?'
 					+ 'classification=all'
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
+					+ '&category=' + $scope.routeParams.category
+					+ '&location=' + $scope.routeParams.location
 					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '');
+			}
+			if ($rootScope.destinationUrlPath != $rootScope.urlPath) {
+				$window.location.href = '#' + $rootScope.destinationUrlPath;
 			}
 		};
 
 		$scope.setCfgCategory = function(cfgCategory) {
 			if (cfgCategory) {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
+				$rootScope.destinationUrlPath = '/search?'
+					+ 'classification=' + $scope.routeParams.classification
 					+ '&category=' + (cfgCategory.cfgCategoryName ? cfgCategory.cfgCategoryName.split(' ').join('-').toLowerCase() : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
+					+ '&location=' + $scope.routeParams.location
 					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=1';
+					+ ($scope.routeParams.classification == 'all') ? '' : '&page=1';
 			} else {
-				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
+				$rootScope.destinationUrlPath = '/search?'
+					+ 'classification=' + $scope.routeParams.classification
 					+ '&category=all'
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '');
+					+ '&location=' + $scope.routeParams.location
+					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
+					+ ($scope.routeParams.classification == 'all') ? '' : '&page=1';
+			}
+			toastr.info($rootScope.destinationUrlPath);
+			if ($rootScope.destinationUrlPath != $rootScope.urlPath) {
+				toastr.info('yes');
+				$window.location.href = '#' + $rootScope.destinationUrlPath;
 			}
 		};
 
 		$scope.pageChangeServicePackage = function() {
 			if ($scope.routeParams.page != $scope.pageServicePackage) {
 				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageServicePackage;
+				+ 'classification=' + $scope.routeParams.classification
+				+ '&category=' + $scope.routeParams.category
+				+ '&location=' + $scope.routeParams.location
+				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
+				+ '&page=' + $scope.pageServicePackage;
 			}
 		};
 
 		$scope.pageChangeServiceProvider = function() {
 			if ($scope.routeParams.page != $scope.pageServiceProvider) {
 				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
+				+ 'classification=' + $scope.routeParams.classification
+				+ '&category=' + $scope.routeParams.category
+				+ '&location=' + $scope.routeParams.location
+				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
 					+ '&page=' + $scope.pageServiceProvider;
 			}
 		};
@@ -110,10 +132,10 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 		$scope.pageChangeForRent = function() {
 			if ($scope.routeParams.page != $scope.pageForRent) {
 				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
+				+ 'classification=' + $scope.routeParams.classification
+				+ '&category=' + $scope.routeParams.category
+				+ '&location=' + $scope.routeParams.location
+				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
 					+ '&page=' + $scope.pageForRent;
 			}
 		};
@@ -121,11 +143,11 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 		$scope.pageChangeJobOpening = function() {
 			if ($scope.routeParams.page != $scope.pageJobOpening) {
 				$window.location.href = '#/search?'
-					+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
-					+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
-					+ '&location=' + ($scope.routeParams.location ? $scope.routeParams.location : 'all')
-					+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
-					+ '&page=' + $scope.pageJobOpening;
+				+ 'classification=' + $scope.routeParams.classification
+				+ '&category=' + $scope.routeParams.category
+				+ '&location=' + $scope.routeParams.location
+				+ ($scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '')
+				+ '&page=' + $scope.pageJobOpening;
 			}
 		};
 
@@ -140,32 +162,32 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$routeParams', '$window',
 
 		$scope.showModal = function() {
 			var modalInstance = $modal.open({
-                templateUrl: 'views/dialogs/dialog.html',
-                controller: 'ConfirmDialogCtrl',
-                size: 'sm'
-            });
-            modalInstance.result.then(function() {
-                
-            }, function() {
+				templateUrl: 'views/dialogs/dialog.html',
+				controller: 'ConfirmDialogCtrl',
+				size: 'sm'
+			});
+			modalInstance.result.then(function() {
 
-            });
+			}, function() {
+
+			});
 		};
 
-        function scrollTo(targetId) {
-            var topOffset;
-            var destination;
-            if (viewportWidth > 991) {
-                topOffset = 146;
-            } else {
-                topOffset = 80;
-            }
-            setTimeout(function() {
-                destination = $(targetId).offset().top - topOffset;
-                $('html, body').animate({scrollTop: destination}, 300);
-                setTimeout(function() {
-                    $(targetId).focus();
-                }, 300);
-            }, 300);
-        }
+		function scrollTo(targetId) {
+			var topOffset;
+			var destination;
+			if (viewportWidth > 991) {
+				topOffset = 146;
+			} else {
+				topOffset = 80;
+			}
+			setTimeout(function() {
+				destination = $(targetId).offset().top - topOffset;
+				$('html, body').animate({scrollTop: destination}, 300);
+				setTimeout(function() {
+					$(targetId).focus();
+				}, 300);
+			}, 300);
+		}
 
 	}]);
