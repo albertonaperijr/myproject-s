@@ -1,0 +1,42 @@
+<div class="serbisyo-modal" ng-style="{'display': showServiceAssetDialog ? 'block' : 'none'}">
+    <div class="serbisyo-modal-content border-radius-3 dialog-shadow-1" ng-style="{'width': viewportWidth > 767 ? '630px' : 'calc(100% - 30px)'}">
+        <img ng-src="{{result.picture ? result.picture : result.thumbnail}}" ng-show="result.thumbnail" class="img-responsive border-radius-top-3" alt="{{result.title}}" style="width: 100%" />
+        <img src="images/serbisyo-icons/service-package-default.png" ng-hide="result.thumbnail" class="img-responsive border-radius-top-3" alt="service asset default" style="width: 100%" />
+        <img src="images/serbisyo-icons/ajax-loader-2.gif" ng-show="showImageLoading" class="img-responsive servicepackage-popup-image-loading" alt="Loading image" />
+        <div class="modal-body">
+            <strong>{{result.title}}</strong>
+            <div class="clearfix"></div>
+            <strong><small>{{result.companyName}}</small></strong>
+            <hr />
+            <div ng-style="{'height': viewportWidth > 767 ? 'auto' : '200px', 'overflow': 'auto'}">
+                <small class="pre-description">{{result.description}}</small>
+            </div>
+            <hr />
+            <small>
+                <strong ng-repeat="unit in $parent.$parent.unit" ng-if="unit.id == result.unit && result.price > 0">
+                    Price:
+                    <span ng-repeat="c in $parent.$parent.$parent.$parent.currency" ng-if="c.id == result.currency">{{c.description}}</span>
+                    {{result.price}}
+                    {{unit.description}}
+                </strong>
+                <strong ng-if="result.price == 0">
+                    Free
+                </strong>
+                <strong ng-if="result.price < 0">
+                    Call me for quotation
+                </strong>
+            </small>
+            <div class="clearfix"></div>
+        </div>
+        <hr />
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning btn-sm" ng-click="closeServiceAssetDialogBox()">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" ng-click="no()">
+                Ok
+            </button>
+        </div>
+    </div>
+</div>
+

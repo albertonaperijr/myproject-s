@@ -1,0 +1,58 @@
+<div class="panel panel-default serbisyo-ads whiteframe-z1">
+	<div class="panel-heading">
+		<strong>{{heading}}</strong>
+		<page-indicator ng-show="results.length"></page-indicator>
+	</div>
+
+	<!-- Results -->
+
+	<div class="panel-body cursor-pointer" ng-repeat="result in results | startFrom: ((currentPage ? currentPage : 1) - 1) * itemsPerPage | limitTo: itemsPerPage" ng-class="{'sponsored-body': $index == 0, 'panel-body-last': $last}" ng-click="$parent.$parent.showServiceAssetDialogBox(result)">
+		<div class="thumbnail">
+			<img ng-show="result.publishedservicetoolId" ng-src="{{result.thumbnail ? result.thumbnail : 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+			<img ng-if="!result.publishedservicetoolId" ng-src="{{result.picture || 'images/serbisyo-icons/no-profile-picture.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+		</div>
+		<div class="serbisyo-ads-content">
+			<div class="content">
+				<h6 class="text-nowrap"><strong>{{result.title}}</strong></h6>
+				<div ng-show="result.fkEmployeeId || result.controlled == 1"><strong><small>{{result.companyName}}</small></strong></div>
+
+				<!-- changed cfgServicePriority to controlled -->
+
+				<div class="text-justify hidden-xs"><small>{{result.description | limitTo: 250}}<span ng-if="result.description.length >= 250">...</span></small></div>
+				<div class="text-justify visible-xs"><small>{{result.description | limitTo: 100}}<span ng-if="result.description.length >= 100">...</span></small></div>
+			</div>
+			<div class="content">
+				<h6 class="text-nowrap">
+					<strong ng-repeat="unit in $parent.$parent.unit" ng-if="unit.id == result.unit && result.price > 0">
+						<span ng-repeat="c in $parent.$parent.$parent.$parent.currency" ng-if="c.id == result.currency">{{c.description}}</span>
+						{{result.price}}
+						{{unit.description}}
+					</strong>
+					<strong ng-if="result.price == 0">
+						Free
+					</strong>
+					<strong ng-if="result.price < 0">
+						Call me for quotation
+					</strong>
+				</h6>
+				<small>{{result.location}}</small>
+			</div>
+		</div>
+
+		<!-- sponsored -->
+		<sponsored text="Sponsored" ng-show="$index == 0"></sponsored>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<!-- No result found -->
+
+	<div class="panel-body panel-body-last no-result-found" ng-if="!results.length">
+	
+		No result found!
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="clearfix"></div>
+</div>

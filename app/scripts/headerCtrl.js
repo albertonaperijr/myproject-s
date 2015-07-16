@@ -5,6 +5,12 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
 
 		console.log($routeParams);
 		$scope.routeParams = $routeParams;
+		var classification = 'classification=' + $scope.routeParams.classification;
+		var category = '&category=' + $scope.routeParams.category;
+		var location = '&location=' + $scope.routeParams.location;
+		var keyword = $scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '';
+		var page = $scope.routeParams.page ? '&page=' + $scope.routeParams.page : '';
+		var targetUrl;
 		var openedToasts = [];
 
         $(window).scroll(function() {
@@ -16,15 +22,15 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
             }
         });
 
-		$scope.search = {
-			key: $routeParams.keyword ? $routeParams.keyword.split('--').join(' ') : '',
-			location: $routeParams.location == 'all' ? '' : $routeParams.location
-		};
-
 		$scope.goToTop = function() {
 			$('html, body').animate({scrollTop: 0}, 300);
 			var toast = openedToasts.pop();
       		toastr.clear(toast);
+		};
+
+		$scope.search = {
+			key: $routeParams.keyword ? $routeParams.keyword.split('--').join(' ') : '',
+			location: $routeParams.location == 'all' ? '' : $routeParams.location
 		};
 
 		$scope.searchSerbisyo = function() {
@@ -35,12 +41,19 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
 				+ ($scope.search.key ? '&keyword=' + $scope.search.key.split(' ').join('--') : '');
 		};
 
+		$scope.searchSerbisyo = function() {
+			classification = 'classification=' + searchType.split(' ').join('-').toLowerCase();
+			page = '&page=1';
+			targetUrl = '#/search?' + classification + category + location + keyword + page;
+			$window.location.href = targetUrl;
+		};
+
 		$scope.login = function() {
 			toastr.info('Login successful');
 			$rootScope.loggedIn = true;
 		};
 
-		$scope.logout = function() {
+		$scope.logoutUser = function() {
 			toastr.info('Logout successful');
 			$rootScope.loggedIn = false;
 		};

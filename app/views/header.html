@@ -14,7 +14,7 @@
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="">Post free Ad</a></li>
+				<li class="background-color-primary"><a href="" style="color: #fff">Post free Ad</a></li>
 			</ul>
 			<ul class="nav navbar-nav" ng-show="loggedIn" ng-class="{'visible-xs': loggedIn}">
 				<li ng-class="{'active': path == '/mydashboard'}">
@@ -49,6 +49,7 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right hidden-xs">
+				<li class="background-color-primary" ng-show><a href="" style="color: #fff">Post free Ad</a></li>
 				<li class="dropdown" ng-show="loggedIn">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="" id="menu">
 						Pangit
@@ -57,7 +58,7 @@
 						<i class="fa fa-angle-down fa-lg"></i>
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="menu">
-						<li ng-class="{'active': path == '/mydashboard'}">
+						<li ng-class="{'active': path == '/mydashboard', 'active': mydashboard}" ng-mouseover="mydashboard = true" ng-mouseleave="mydashboard = false">
 							<a href="#/mydashboard">
 								<i class="fa fa-user"></i>
 								&nbsp;
@@ -65,14 +66,14 @@
 							</a>
 						</li>
 						<li class="divider"></li>
-						<li ng-class="{'active': path == '/settings'}" ng-mouseover="settingsHover = true" ng-mouseleave="settingsHover = false">
+						<li ng-class="{'active': path == '/settings', 'active': settings}" ng-mouseover="settings = true" ng-mouseleave="settings = false">
 							<a href="#/settings">
 								<i class="fa fa-cog" ng-class="{'fa-spin': settingsHover}"></i>
 								&nbsp;
 								Settings
 							</a>
 						</li>
-						<li ng-class="{'active': path == '/multilogin'}">
+						<li ng-class="{'active': path == '/multilogin', 'active': multilogin}" ng-mouseover="multilogin = true" ng-mouseleave="multilogin = false">
 							<a href="#/multilogin">
 								<i class="fa fa-list-ul"></i>
 								&nbsp;
@@ -80,7 +81,7 @@
 							</a>
 						</li>
 						<li class="divider"></li>
-						<li ng-class="{'active': path == '/logout'}" ng-click="logout()">
+						<li ng-class="{'active': logout}" ng-mouseover="logout = true" ng-mouseleave="logout = false" ng-click="logoutUser()">
 							<a href="">
 								<i class="fa fa-sign-out"></i>
 								&nbsp;
@@ -94,35 +95,35 @@
 						Sign in | Sign up
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="login">
-						<li ng-click="login()">
+						<li ng-click="login()" ng-class="{'active': facebook}" ng-mouseover="facebook = true" ng-mouseleave="facebook = false">
 							<a href="">
 								<i class="fa fa-facebook"></i>
 								&nbsp;
 								Facebook
 							</a>
 						</li>
-						<li ng-click="login()">
+						<li ng-click="login()" ng-class="{'active': twitter}" ng-mouseover="twitter = true" ng-mouseleave="twitter = false">
 							<a href="">
 								<i class="fa fa-twitter"></i>
 								&nbsp;
 								Twitter
 							</a>
 						</li>
-						<li ng-click="login()">
+						<li ng-click="login()" ng-class="{'active': google}" ng-mouseover="google = true" ng-mouseleave="google = false">
 							<a href="">
 								<i class="fa fa-google"></i>
 								&nbsp;
-								Gmail
+								Google
 							</a>
 						</li>
-						<li ng-click="login()">
+						<li ng-click="login()" ng-class="{'active': linkedin}" ng-mouseover="linkedin = true" ng-mouseleave="linkedin = false">
 							<a href="">
 								<i class="fa fa-linkedin"></i>
 								&nbsp;
 								LinkedIn
 							</a>
 						</li>
-						<li ng-click="login()">
+						<li ng-click="login()" ng-class="{'active': yahoo}" ng-mouseover="yahoo = true" ng-mouseleave="yahoo = false">
 							<a href="">
 								<i class="fa fa-yahoo"></i>
 								&nbsp;
@@ -163,7 +164,7 @@
 
 <div class="container-fluid header-search" style="margin-top: 64px;">
 	<div class="row">
-		<div class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-8 col-md-offset-7 col-sm-offset-6">
+		<form class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-8 col-md-offset-7 col-sm-offset-6">
 			<div class="form-group">
 				<div class="input-group input-group-sm">
 					<input type="search" class="form-control searchkey whiteframe-z0" ng-model="search.key" placeholder="I'm looking for..." />
@@ -186,12 +187,12 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
 <!-- Go to top -->
 
-<div class="container-fluid go-to-top" ng-class="{'whiteframe-z1': goTo}" ng-mouseover="goTo = true" ng-mouseleave="goTo = false" ng-click="goToTop()">
-	<i class="fa fa-angle-up fa-lg"></i>
+<div class="container-fluid go-to-top" ng-class="{'whiteframe-z6': goTo, 'whiteframe-z2': !goTo}" ng-mouseover="goTo = true" ng-mouseleave="goTo = false" ng-click="goToTop()">
+	<i class="fa fa-angle-up fa-3x"></i>
 </div>
