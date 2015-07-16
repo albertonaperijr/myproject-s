@@ -15,19 +15,19 @@
 					<small>{{selectedSearchTypeTitle}}</small>
 					<hr>
 				</h6>
-				<div class="radio input-sm">
-					<label ng-click="setSearchType()" ng-style="{'font-weight': !selectedSearchTypeId ? 'bold': 'normal', 'color': !selectedSearchTypeId ? '#000': '#666666'}">
+				<div class="radio input-sm" ng-click="setSearchType()">
+					<label ng-style="{'font-weight': !selectedSearchTypeId ? 'bold': 'normal', 'color': !selectedSearchTypeId ? '#000': '#666666'}">
 						All Classifications
 					</label>
 				</div>
-				<div class="radio input-sm" ng-repeat="searchType in searchType">
-					<label ng-click="setSearchType(searchType)" ng-style="{'font-weight': selectedSearchTypeId == searchType.id ? 'bold': 'normal', 'color': selectedSearchTypeId == searchType.id ? '#000': '#666666'}">
+				<div class="radio input-sm" ng-repeat="searchType in searchType" ng-click="setSearchType(searchType)">
+					<label ng-style="{'font-weight': selectedSearchTypeId == searchType.id ? 'bold': 'normal', 'color': selectedSearchTypeId == searchType.id ? '#000': '#666666'}">
 						{{searchType.description}}
 					</label>
 				</div>
 			</div>
 		</div>
-		<div class="content-container whiteframe-z1" ng-class="{'whiteframe-z3': viewportWidth < 975 && contentHover2, 'whiteframe-z4': viewportWidth < 975 && contentClick2, 'content-2': viewportWidth < 975 && contentClick2}" ng-mouseover="contentHover2 = true" ng-mouseleave="contentHover2 = false" ng-click="contentClick2 = !contentClick2"ng-init="(viewportWidth < 975) ? limitCategory = lstCfgcategory.length : limitCategory = 10">
+		<div class="content-container whiteframe-z1" ng-class="{'whiteframe-z3': viewportWidth < 975 && contentHover2, 'whiteframe-z4': viewportWidth < 975 && contentClick2, 'content-2': viewportWidth < 975 && contentClick2}" ng-mouseover="contentHover2 = true" ng-mouseleave="contentHover2 = false" ng-click="contentClick2 = !contentClick2; viewportWidth < 975 ? limitCategory = lstCfgcategory.length : '';" ng-init="(viewportWidth < 975) ? limitCategory = lstCfgcategory.length : limitCategory = 10">
 			<div class="form-group">
 				<h6>
 					<strong>Category</strong>
@@ -35,13 +35,13 @@
 					<small>{{selectedCategoryName}}</small>
 					<hr>
 				</h6>
-				<div class="radio input-sm">
-					<label ng-click="setCfgCategory()" ng-style="{'font-weight': !selectedCategoryId ? 'bold': 'normal', 'color': !selectedCategoryId ? '#000': '#666666'}">
+				<div class="radio input-sm" ng-click="setCfgCategory()">
+					<label ng-style="{'font-weight': !selectedCategoryId ? 'bold': 'normal', 'color': !selectedCategoryId ? '#000': '#666666'}">
 						All Categories
 					</label>
 				</div>
-				<div class="radio input-sm" ng-repeat="cfgCategory in lstCfgcategory | limitTo: limitCategory">
-					<label ng-click="setCfgCategory(cfgCategory)" ng-style="{'font-weight': selectedCategoryId == cfgCategory.pkCfgCategoryId ? 'bold': 'normal', 'color': selectedCategoryId == cfgCategory.pkCfgCategoryId ? '#000': '#666666'}">
+				<div class="radio input-sm" ng-click="setCfgCategory(cfgCategory)" ng-repeat="cfgCategory in lstCfgcategory | limitTo: limitCategory">
+					<label ng-style="{'font-weight': selectedCategoryId == cfgCategory.pkCfgCategoryId ? 'bold': 'normal', 'color': selectedCategoryId == cfgCategory.pkCfgCategoryId ? '#000': '#666666'}">
 						{{cfgCategory.cfgCategoryName}}
 					</label>
 				</div>

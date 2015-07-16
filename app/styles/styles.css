@@ -1,7 +1,7 @@
 /****** Serbisyo.com styles **********/
 
 body {
-	background-color: #F1F1F1;
+	background-color: #E5E5E5;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -199,7 +199,7 @@ a.btn-flat {
 }
 
 .current-page {
-	background: #F1F1F1;
+	background: #E5E5E5;
 	padding: 5px 7px;
 	border-radius: 2px;
 }
@@ -309,18 +309,18 @@ a.btn-flat {
 	padding-top: 6px;
 	padding-bottom: 2px;
 	border-radius: 3px;
-	color: #F1F1F1;
+	color: #E5E5E5;
 	cursor: pointer;
 	z-index: 1000;
 	opacity: 0;
 }
 
 .go-to-top:hover {
-	background: rgba(0,0,0,.5);
+	/*background: rgba(0,0,0,.5);*/
 }
 
 .go-to-top .glyphicon {
-	font-size: 25px;
+	/*font-size: 25px;*/
 }
 
 /** serbisyo-ads **/
@@ -352,8 +352,10 @@ a.btn-flat {
 }
 
 .search-filters .radio {
-	margin-top: -10px;
+	padding-left: 0;
+	margin-top: -5px;
 	margin-bottom: 0;
+	cursor: pointer;
 	-webkit-transition: all 0s linear;
 	-o-transition: all 0s linear;
 	transition: all 0s linear;
@@ -361,8 +363,7 @@ a.btn-flat {
 
 .search-filters .radio label {
 	min-height: 23px;
-	padding-left: 5px;
-	cursor: pointer;
+	padding-left: 0;
 }
 
 .show-category label {
@@ -392,24 +393,16 @@ a.btn-flat {
 		transition: all .2s linear;
 	}
 
-	.search-filters .radio {
-		padding-left: 0;
-	}
-
-	.search-filters .radio label {
-		padding-left: 0;
-	}
-
 	.search-filters .content-container:last-child {
 		margin-left: 10px;
 	}
 
 	.search-filters .content-container.content-1 {
-		height: 164px;
+		height: 190px;
 	}
 
 	.search-filters .content-container.content-2 {
-		height: 504px;
+		height: 615px;
 	}
 }
 
@@ -451,18 +444,16 @@ a.btn-flat {
 }
 
 .serbisyo-ads .panel-body:hover {
+	background: #F5F5F5;
 	-webkit-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 	-moz-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-.serbisyo-ads .panel-body:last-child {
+.serbisyo-ads .panel-body:last-child,
+.serbisyo-ads .panel-body:last-child:hover {
 	border-bottom-right-radius: 3px;
   	border-bottom-left-radius: 3px;
-}
-
-.serbisyo-ads .panel-body:hover {
-	background: #f6f6f6;
 }
 
 .serbisyo-ads .thumbnail {
@@ -556,4 +547,4 @@ a.btn-flat {
 	}
 }
 
-/** 
+/**   **/

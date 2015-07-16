@@ -123,6 +123,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 		};
 
 		$scope.showLessCategory = function() {
+			
 			$scope.limitCategory = 10;
 		};
 
