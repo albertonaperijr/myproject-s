@@ -68,7 +68,7 @@
 						<li class="divider"></li>
 						<li ng-class="{'active': path == '/settings', 'active': settings}" ng-mouseover="settings = true" ng-mouseleave="settings = false">
 							<a href="#/settings">
-								<i class="fa fa-cog" ng-class="{'fa-spin': settingsHover}"></i>
+								<i class="fa fa-cog" ng-class="{'fa-spin': settings}"></i>
 								&nbsp;
 								Settings
 							</a>
@@ -130,6 +130,13 @@
 								Yahoo
 							</a>
 						</li>
+						<li>
+							<a href="#/styles">
+								<i class="fa fa-github"></i>
+								&nbsp;
+								My Styles
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -167,7 +174,7 @@
 		<form class="col-lg-4 col-md-5 col-sm-6 col-lg-offset-8 col-md-offset-7 col-sm-offset-6">
 			<div class="form-group">
 				<div class="input-group input-group-sm">
-					<input type="search" class="form-control searchkey whiteframe-z0" ng-model="search.key" placeholder="I'm looking for..." />
+					<input type="search" class="form-control searchkey whiteframe-z0" ng-model="search.keyword" placeholder="I'm looking for..." />
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" ng-click="searchSerbisyo()">
 							&nbsp;

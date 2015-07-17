@@ -10,6 +10,7 @@ app.directive('serbisyoAdsResult', [function() {
 			heading: '=',
 			searchType: '=',
 			results: '=',
+			keyword: '=',
 			itemsPerPage: '=',
 			currentPage: '=',
 			numPages: '='
@@ -46,7 +47,7 @@ app.directive('pageIndicator', [function() {
 	
 	return {
 		restrict: 'E',
-		template: '<strong class="pull-right">Page <span class="current-page">{{currentPage}}</span> of {{numPages}}</strong>',
+		template: '<strong class="pull-right">Page <span class="num-hightlight">{{currentPage}}</span> of {{numPages}}</strong>',
 		replace: true
 	};
 
@@ -71,6 +72,16 @@ app.directive('serbisyoAssetDialog', [function() {
 		restrict: 'E',
 		templateUrl: 'views/dialogs/serviceAssetDialog.html',
 		replace: true
+	};
+
+}]);
+
+app.directive('resultsFound', [function() {
+
+	return {
+		restrict: 'E',
+		template: '<div class="results-found text-center"><div class="content-container whiteframe-z1 border-radius-3">Result<span ng-show="results.length > 1">s</span> found: <span class="num-hightlight">{{results.length}}</span></div></div>',
+    	replace: true
 	};
 
 }]);

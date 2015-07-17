@@ -11,6 +11,8 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
 		var keyword = $scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '';
 		var page = $scope.routeParams.page ? '&page=' + $scope.routeParams.page : '';
 		var targetUrl;
+		var routeParamsLocation = $scope.routeParams.location == 'all' ? '' : $scope.routeParams.location.split('--').join(' ');
+		var routeParamsKeyword = $scope.routeParams.keyword ? $scope.routeParams.keyword.split('--').join(' ') : '';
 		var openedToasts = [];
 
         $(window).scroll(function() {
@@ -29,23 +31,28 @@ app.controller('HeaderCtrl', ['$rootScope', '$scope', '$routeParams', '$filter',
 		};
 
 		$scope.search = {
-			key: $routeParams.keyword ? $routeParams.keyword.split('--').join(' ') : '',
-			location: $routeParams.location == 'all' ? '' : $routeParams.location
+			keyword: $scope.routeParams.keyword ? $scope.routeParams.keyword.split('--').join(' ') : '',
+			location: $scope.routeParams.location == 'all' ? '' : $scope.routeParams.location.split('--').join(' ')
 		};
 
-		$scope.searchSerbisyo = function() {
+		$scope.searchSerbisyox = function() {
 			$window.location.href = '#/search?'
 				+ 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all')
 				+ '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all')
 				+ '&location=' + ($scope.search.location ? $scope.search.location : 'all')
-				+ ($scope.search.key ? '&keyword=' + $scope.search.key.split(' ').join('--') : '');
+				+ ($scope.search.keyword ? '&keyword=' + $scope.search.keyword.split(' ').join('--') : '');
 		};
 
 		$scope.searchSerbisyo = function() {
-			classification = 'classification=' + searchType.split(' ').join('-').toLowerCase();
-			page = '&page=1';
-			targetUrl = '#/search?' + classification + category + location + keyword + page;
-			$window.location.href = targetUrl;
+			if ($scope.search.location != routeParamsLocation || $scope.search.location != routeParamsKeyword) {
+				toastr.info('yes');
+			} else {
+				toastr.info('no');
+			}
+
+			// page = '&page=1';
+			// targetUrl = '#/search?' + classification + category + location + keyword + page;
+			// $window.location.href = targetUrl;
 		};
 
 		$scope.login = function() {

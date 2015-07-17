@@ -8,6 +8,11 @@ app.controller('MainCtrl', ['$rootScope', '$scope', '$location', '$routeParams',
         $rootScope.path = $location.path();
         $rootScope.urlPath = $location.url();
 
+        // if ($rootScope.path.indexOf('/home') = -1) {
+        //     toastr.info('yes');
+        //     $('html, body').css('background', '#fff');
+        // }
+
         // detect viewport size
         $(window).resize(function() {
         	$scope.$apply(function() {

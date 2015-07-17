@@ -6,7 +6,7 @@
 
 	<!-- Results -->
 
-	<div class="panel-body cursor-pointer" ng-repeat="result in results | startFrom: ((currentPage ? currentPage : 1) - 1) * itemsPerPage | limitTo: itemsPerPage" ng-class="{'sponsored-body': $index == 0, 'panel-body-last': $last}" ng-click="$parent.$parent.showServiceAssetDialogBox(result)">
+	<div class="panel-body cursor-pointer" ng-repeat="result in results | startFrom: ((currentPage ? currentPage : 1) - 1) * itemsPerPage | limitTo: itemsPerPage | filter: keyword" ng-class="{'sponsored-body': $index == 0, 'panel-body-last': $last}" ng-click="result.publishedservicetoolId ? $parent.$parent.showServiceAssetDialogBox(result) : result.publishedjobpostId ? $parent.$parent.redirectToViewJobpost(result) : $parent.$parent.redirectToViewService(result)">
 		<div class="thumbnail">
 			<img ng-show="result.publishedservicetoolId" ng-src="{{result.thumbnail ? result.thumbnail : 'images/serbisyo-icons/no-tool-image.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
 			<img ng-if="!result.publishedservicetoolId" ng-src="{{result.picture || 'images/serbisyo-icons/no-profile-picture.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />

@@ -13,8 +13,11 @@ app.config(['$routeProvider', '$locationProvider', 'toastrConfig', function($rou
 
   $routeProvider
   .when('/', {
-    templateUrl: 'views/main.html',
-    controller: ''
+    templateUrl: 'views/home.html',
+    controller: 'HomeCtrl'
+  })
+  .when('/styles', {
+    templateUrl: 'views/main.html'
   })
   .when('/search', {
     templateUrl: 'views/search.html',
@@ -43,8 +46,8 @@ app.config(['$routeProvider', '$locationProvider', 'toastrConfig', function($rou
     onHidden: null,
     onShown: null,
     positionClass: 'toast-bottom-right',
-    preventDuplicates: true,
-    preventOpenDuplicates: false,
+    preventDuplicates: false,
+    preventOpenDuplicates: true,
     progressBar: false,
     tapToDismiss: true,
     // target: 'body',

@@ -7,7 +7,9 @@
 	<!-- Search Filters -->
 
 	<div class="search-filters" ng-style="{'width': viewportWidth > 975 ? '275px' : ''}">
+
 		<serbisyo-search-filter></serbisyo-search-filter>
+
 	</div>
 
 	<!-- Search Results -->
@@ -16,11 +18,15 @@
 
 		<!-- serbisyo-ads-result -->
 
-		<serbisyo-ads-result search-type="selectedSearchTypeId" heading="selectedSearchTypeTitle" results="results" items-per-page="itemsPerPage" current-page="routeParams.page" num-pages="numPages"></serbisyo-ads-result>
+		<serbisyo-ads-result search-type="selectedSearchTypeId" heading="selectedSearchTypeTitle" results="results" items-per-page="itemsPerPage" keyword="routeParams.keyword" current-page="routeParams.page" num-pages="numPages"></serbisyo-ads-result>
 
 		<!-- Pagination for Service Packages -->
 
 		<serbisyo-pagination ng-show="routeParams.page <= numPages && results.length"></serbisyo-pagination>
+
+		<!-- Results found -->
+
+		<results-found ng-show="results.length"></results-found>
 
 	    <div class="clearfix"></div>
     </div>

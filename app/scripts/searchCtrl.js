@@ -115,16 +115,27 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 			$scope.limitCategory = 10;
 		};
 
+		$scope.redirectToViewService = function(result) {
+			toastr.info('service');
+		};
+
+		$scope.redirectToViewJobpost = function(result) {
+			toastr.info('jobpost');
+		};
+
 		$scope.showServiceAssetDialogBox = function(result) {
-			$('html, body').css('overflow', 'hidden');
-			console.log(result);
 			$scope.result = result;
+			$scope.scaleDialog = true;
 			$scope.showServiceAssetDialog = true;
+			$('html, body').css('overflow', 'hidden');
 		};
 
 		$scope.closeServiceAssetDialogBox = function() {
-			$('html, body').css('overflow', 'auto');
-			$scope.showServiceAssetDialog = false;
+			$scope.scaleDialog = false;
+			$timeout(function() {
+				$scope.showServiceAssetDialog = false;
+				$('html, body').css('overflow', 'auto');
+			}, 50);
 		};
 
 		$scope.showModal = function() {
