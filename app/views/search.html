@@ -2,11 +2,11 @@
 
 <!-- Search Page -->
 
-<div class="container-fluid">
+<div class="container">
 
 	<!-- Search Filters -->
 
-	<div class="search-filters" ng-style="{'width': viewportWidth > 975 ? '275px' : ''}">
+	<div class="search-filters" ng-style="{'width': viewportWidth > 975 ? '230px' : '', 'height': viewportWidth <= 450 && viewportWidth <= 992 && selectedSearchTypeId == 4 ? '60px' : viewportWidth <= 450 ? '120px' : 'auto'}">
 
 		<serbisyo-search-filter></serbisyo-search-filter>
 

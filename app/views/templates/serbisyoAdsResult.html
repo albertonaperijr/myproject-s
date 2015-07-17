@@ -25,7 +25,7 @@
 				<h6 class="text-nowrap">
 					<strong ng-repeat="unit in $parent.$parent.unit" ng-if="unit.id == result.unit && result.price > 0">
 						<span ng-repeat="c in $parent.$parent.$parent.$parent.currency" ng-if="c.id == result.currency">{{c.description}}</span>
-						{{result.price}}
+						{{result.price | currency: ''}}
 						{{unit.description}}
 					</strong>
 					<strong ng-if="result.price == 0">
@@ -40,7 +40,7 @@
 		</div>
 
 		<!-- sponsored -->
-		<sponsored text="Sponsored" ng-show="$index == 0"></sponsored>
+		<sponsored text="Featured" ng-show="$index == 0"></sponsored>
 
 		<div class="clearfix"></div>
 	</div>

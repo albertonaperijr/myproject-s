@@ -6256,8 +6256,8 @@ button.close {
   left: 50%;
   margin-left: -11px;
   border-top-width: 0;
-  border-bottom-color: rgba(0, 0, 0, 0);
-  border-bottom-color: rgba(0, 0, 0, 0.075);
+  border-bottom-color: red;
+  border-bottom-color: red;
   top: -11px;
 }
 .popover.bottom > .arrow:after {

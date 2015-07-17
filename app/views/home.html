@@ -1,3 +1,177 @@
 <div class="home-page">
-xxxxxxxxxxxxxxxxxxxx
+	<div class="content-1">
+		<div class="background-image">
+			<img src="images/carousel_images/event.jpg" alt="Events" class="img-responsive" />
+		</div>
+		<div class="header-container">
+			<div class="container">
+				<div class="nav">
+					<div class="btn-group pull-right">
+						<button type="button" ng-click="showSignInOptions = !showSignInOptions" class="whiteframe-z2">
+							Sign up | Sign in
+						</button>
+						<div class="popover fade bottom in sign-in-dropdown" role="tooltip" ng-style="{'display': showSignInOptions ? 'block' : 'none'}">
+							<div class="arrow" style="left: 51%;"></div>
+							<div class="popover-content">
+								<ul class="">
+									<li ng-click="login()">
+										<a href="">
+											<i class="fa fa-facebook"></i>
+											&nbsp;
+											Facebook
+										</a>
+									</li>
+									<li ng-click="login()">
+										<a href="">
+											<i class="fa fa-twitter"></i>
+											&nbsp;
+											Twitter
+										</a>
+									</li>
+									<li ng-click="login()">
+										<a href="">
+											<i class="fa fa-google"></i>
+											&nbsp;
+											Google
+										</a>
+									</li>
+									<li ng-click="login()">
+										<a href="">
+											<i class="fa fa-linkedin"></i>
+											&nbsp;
+											LinkedIn
+										</a>
+									</li>
+									<li ng-click="login()">
+										<a href="">
+											<i class="fa fa-yahoo"></i>
+											&nbsp;
+											Yahoo
+										</a>
+									</li>
+									<li>
+										<a href="#/styles">
+											<i class="fa fa-github"></i>
+											&nbsp;
+											My Styles
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="">
+							Sign up | Sign in
+						</button>
+						<ul class="dropdown-menu" ng-if="">
+							<li ng-click="login()" ng-class="{'active': facebook}" ng-mouseover="facebook = true" ng-mouseleave="facebook = false">
+								<a href="">
+									<i class="fa fa-facebook"></i>
+									&nbsp;
+									Facebook
+								</a>
+							</li>
+							<li ng-click="login()" ng-class="{'active': twitter}" ng-mouseover="twitter = true" ng-mouseleave="twitter = false">
+								<a href="">
+									<i class="fa fa-twitter"></i>
+									&nbsp;
+									Twitter
+								</a>
+							</li>
+							<li ng-click="login()" ng-class="{'active': google}" ng-mouseover="google = true" ng-mouseleave="google = false">
+								<a href="">
+									<i class="fa fa-google"></i>
+									&nbsp;
+									Google
+								</a>
+							</li>
+							<li ng-click="login()" ng-class="{'active': linkedin}" ng-mouseover="linkedin = true" ng-mouseleave="linkedin = false">
+								<a href="">
+									<i class="fa fa-linkedin"></i>
+									&nbsp;
+									LinkedIn
+								</a>
+							</li>
+							<li ng-click="login()" ng-class="{'active': yahoo}" ng-mouseover="yahoo = true" ng-mouseleave="yahoo = false">
+								<a href="">
+									<i class="fa fa-yahoo"></i>
+									&nbsp;
+									Yahoo
+								</a>
+							</li>
+							<li>
+								<a href="#/styles">
+									<i class="fa fa-github"></i>
+									&nbsp;
+									My Styles
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="home-search">
+					<div class="">
+						<img src="images/serbisyo-logo-darker.png" alt="serbisyo.com" class="img-responsive" />
+					</div>
+					<div>
+						<ui-select ng-model="model.people">
+						    <ui-select-match ui-lock-choice="$item.status == 'inactive'">{{$item.citytownName}}</ui-select-match>
+						    <ui-select-choices  repeat="value.id as value in lstCfgCitytown | filter: $select.search">
+						        <div ng-bind-html="value.citytownName | highlight: $select.search"></div>
+						    </ui-select-choices>
+						</ui-select>
+						<p>Selected: {{citytown.selected.citytownName}}</p>
+						<ui-select ng-model="citytown.selected"
+						           theme="bootstrap"
+						           ng-disabled="disabled"
+						           reset-search-input="false"
+						           style="width: 300px;">
+						    <ui-select-match placeholder="Enter an citytown...">{{$select.selected.citytownName}}</ui-select-match>
+						    <ui-select-choices repeat="citytown in lstCfgCitytown | filter: citytown.selected"
+						                       refresh="refreshcitytownes($select.search)"
+						                       refresh-delay="0">
+						        <div ng-bind-html="citytown.citytownName | highlight: $select.search"></div>
+						    </ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pre-description">
+		xxxxxxxxxxxxx
+
+
+
+
+
+
+
+
+
+		asdfasdfasdf
+
+
+
+
+
+
+
+
+
+
+		asdfasdfasdf
+
+
+
+
+
+
+
+
+
+
+
+
+		asdfasdfasdf
+	</div>
 </div>

@@ -9,14 +9,15 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Serbisyo.com</title>
 	<link rel="icon" type="image/png" href="images/favicon.png" />
-	<!-- <link rel="stylesheet" type="text/css" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
-	<link rel="stylesheet" type="text/css" href="bower_components/angular-ui/build/angular-ui.min.css" /> -->
 	<link rel="stylesheet" type="text/css" href="bower_components/angular-toastr/dist/angular-toastr.min.css" />
+	<link rel="stylesheet" type="text/css" href="bower_components/angular-ui-select/dist/select.min.css" />
 	<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
 	<link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="styles/styles.css" />
 </head>
 <body>
+
+	<!-- path {{path}} ng-style="{'background': path == '/' ? '#fff' : '#E5E5E5'}" -->
 
 	<div ng-view></div>
 
@@ -35,16 +36,22 @@
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="bower_components/angular-toastr/dist/angular-toastr.min.js"></script>
 	<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+	<script src="bower_components/angular-ui-select/dist/select.min.js"></script>
+
+	<script src="scripts/jqueryCodes.js"></script>
 
 	<script src="scripts/app.js"></script>
 	<script src="scripts/filter.js"></script>
 	<script src="scripts/directive.js"></script>
 
-	<script src="scripts/confirmDialogCtrl.js"></script>
-	<script src="scripts/headerCtrl.js"></script>
-	<script src="scripts/homeCtrl.js"></script>
-	<script src="scripts/mainCtrl.js"></script>
-	<script src="scripts/searchCtrl.js"></script>
+	<script src="scripts/controllers/confirmDialogCtrl.js"></script>
+	<script src="scripts/controllers/headerCtrl.js"></script>
+	<script src="scripts/controllers/homeCtrl.js"></script>
+	<script src="scripts/controllers/mainCtrl.js"></script>
+	<script src="scripts/controllers/searchCtrl.js"></script>
+	<script src="scripts/controllers/viewServiceCtrl.js"></script>
+
+	<script src="scripts/services/sharedDataFactory.js"></script>
 
 </body>
 </html>

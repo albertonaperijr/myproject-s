@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout', 'toastr',
-	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout, toastr) {
+app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', '$window', '$modal', '$timeout', 'toastr', 'SharedDataFactory',
+	function($rootScope, $scope, $route, $routeParams, $window, $modal, $timeout, toastr, SharedDataFactory) {
 
 		$scope.routeParams = $routeParams;
 		$scope.itemsPerPage = 10;
-		var classification = 'classification=' + $scope.routeParams.classification;
-		var category = '&category=' + $scope.routeParams.category;
+		var classification = 'classification=' + ($scope.routeParams.classification ? $scope.routeParams.classification : 'all');
+		var category = '&category=' + ($scope.routeParams.category ? $scope.routeParams.category : 'all');
 		var location = '&location=' + $scope.routeParams.location;
 		var keyword = $scope.routeParams.keyword ? '&keyword=' + $scope.routeParams.keyword : '';
 		var page = '&page=' + ($scope.routeParams.page ? $scope.routeParams.page : '1');
@@ -16,7 +16,14 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 			$('html, body').animate({scrollTop: 0}, 100);
 		}, 300);
 
-		if ($scope.routeParams.classification == 'all') {
+		if ($scope.routeParams.page) {
+			$scope.currentPage = $scope.routeParams.page;
+		} else {
+			$scope.routeParams.page = 1;
+			$scope.currentPage = 1;
+		}
+
+		if ($scope.routeParams.classification == 'all' || !$scope.routeParams.classification) {
 			$scope.selectedSearchTypeId = '';
 			$scope.selectedSearchTypeTitle = 'All Classifications';
 			$scope.results = $rootScope.lstAllClassificationResult;
@@ -41,14 +48,7 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 			};
 		}
 
-		if ($scope.routeParams.page) {
-			$scope.currentPage = $scope.routeParams.page;
-		} else {
-			$scope.routeParams.page = 1;
-			$scope.currentPage = 1;
-		}
-
-		if ($scope.routeParams.category == 'all') {
+		if ($scope.routeParams.category == 'all' || !$scope.routeParams.category) {
 			$scope.selectedCategoryId = '';
 			$scope.selectedCategoryName = 'All Categories';
 		} else {
@@ -56,6 +56,17 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 				if ($scope.routeParams.category.split('-').join(' ') == $rootScope.lstCfgcategory[i].cfgCategoryName.toLowerCase()) {
 					$scope.selectedCategoryId = $rootScope.lstCfgcategory[i].pkCfgCategoryId;
 					$scope.selectedCategoryName = $rootScope.lstCfgcategory[i].cfgCategoryName;
+				}
+			};
+		}
+
+		if ($scope.routeParams.location == 'all' || !$scope.routeParams.location) {
+			$scope.citytownId = '';
+		} else {
+			for (var i = $rootScope.lstCfgCitytown.length - 1; i >= 0; i--) {
+				if ($scope.routeParams.location.split('-').join(' ') == $rootScope.lstCfgCitytown[i].citytownName) {
+					console.log($rootScope.lstCfgCitytown[i]);
+					$scope.citytownId = $rootScope.lstCfgCitytown[i].pkCfgCitytownId;
 				}
 			};
 		}
@@ -117,6 +128,10 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 
 		$scope.redirectToViewService = function(result) {
 			toastr.info('service');
+			console.log(result);
+			$scope.closeServiceAssetDialogBox();
+			SharedDataFactory.service = result;
+			$window.location.href = '#/service/' + result.publishedserviceId;
 		};
 
 		$scope.redirectToViewJobpost = function(result) {
@@ -137,6 +152,25 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 				$('html, body').css('overflow', 'auto');
 			}, 50);
 		};
+
+		// $.fn.hasScrollBar = function() {
+	 //        return this.get(0).scrollHeight > this.height();
+	 //    }
+
+	    $('#serviceAssetDialog').scroll(function() {
+	    	console.log('xxxxxxxxxxxxxxx');
+            toastr.info('yes');
+            var verticalScrollPosition = $('.serbisyo-modal').scrollTop();
+            if (verticalScrollPosition > 200) {
+            	$('.go-to-top').css('opacity', '1');
+            } else {
+            	$('.go-to-top').css('opacity', '0');
+            }
+        });
+
+        $(document).on('scroll', '#serviceAssetDialog', function(){
+		    console.log('Event Fired');
+		});
 
 		$scope.showModal = function() {
 			var modalInstance = $modal.open({

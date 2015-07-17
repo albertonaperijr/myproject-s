@@ -1,4 +1,4 @@
-<div class="serbisyo-modal" ng-style="{'display': showServiceAssetDialog ? 'block' : 'none'}">
+<div class="serbisyo-modal" id="" ng-style="{'display': showServiceAssetDialog ? 'block' : 'none'}">
     <div class="serbisyo-modal-content border-radius-3 dialog-shadow-1" ng-class="{'scale-down': !scaleDialog, 'scale-up': scaleDialog}" ng-style="{'width': viewportWidth > 680 ? '630px' : 'calc(100% - 30px)'}">
         <img ng-src="{{result.picture ? result.picture : result.thumbnail}}" ng-show="result.thumbnail" class="img-responsive border-radius-top-3" alt="{{result.title}}" style="width: 100%" />
         <img src="images/serbisyo-icons/service-package-default.png" ng-hide="result.thumbnail" class="img-responsive border-radius-top-3" alt="service asset default" style="width: 100%" />
@@ -8,7 +8,7 @@
             <div class="clearfix"></div>
             <strong><small>{{result.companyName}}</small></strong>
             <hr />
-            <div ng-style="{'height': viewportWidth > 767 ? 'auto' : '175px', 'overflow': 'auto'}">
+            <div ng-style="{'height': viewportWidth > 767 ? 'auto' : '150px', 'overflow': 'auto'}" id="resultDescription">
                 <small class="pre-description">{{result.description}}</small>
             </div>
             <hr />
@@ -31,14 +31,17 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-warning btn-sm" ng-click="closeServiceAssetDialogBox()">
-                Cancel
+                Close
             </button>
-            <button type="button" class="btn btn-primary btn-sm" ng-click="redirectToViewService(result)">
+            <button type="button" class="btn btn-primary btn-sm" ng-click="redirectToViewService(result)" ng-hide="$parent.path.indexOf('/service/') != -1">
                 View Full Details
             </button>
         </div>
     </div>
+    <i class="fa fa-chevron-up fa-3x text-center cursor-pointer" style="position: fixed; top: 10px; left: 49%;"></i>
+    <i class="fa fa-chevron-down fa-3x text-center cursor-pointer" style="position: fixed; bottom: 10px; left: 49%;"></i>
     <div class="clearfix"></div>
     <br />
 </div>
 
+        

@@ -95,6 +95,7 @@
 						Sign in | Sign up
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="login">
+						<li class="dropdown-header bold" style="color: #666666;">Using</li>
 						<li ng-click="login()" ng-class="{'active': facebook}" ng-mouseover="facebook = true" ng-mouseleave="facebook = false">
 							<a href="">
 								<i class="fa fa-facebook"></i>
@@ -141,12 +142,12 @@
 				</li>
 			</ul>
 
-			<form class="navbar-form navbar-right" role="search" style="margin-left: 100px" ng-show>
-				<div class="form-group">
+			<form class="navbar-form navbar-left form-group-sm" role="search" style="margin-top: 20px" ng-show>
+				<div class="form-group" ng-show>
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="I'm looking for..." />
+						<input type="search" class="form-control" placeholder="I'm looking for..."  />
 						<span class="input-group-btn">
-							<button class="btn btn-primary" type="button">
+							<button class="btn btn-primary btn-sm" type="button">
 								&nbsp;
 								<span class="glyphicon glyphicon-search"></span>
 								&nbsp;
@@ -154,9 +155,9 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group" ng-show>
-					<input type="search" class="form-control" placeholder="I'm looking for..." ng-disabled />
-					<button type="submit" class="btn btn-primary">
+				<div class="form-group form-group-sm">
+					<input type="search" class="form-control" placeholder="I'm looking for..." style="width: 300px;" ng-disabled />
+					<button type="submit" class="btn btn-primary btn-sm">
 						&nbsp;
 						<span class="glyphicon glyphicon-search"></span>
 						&nbsp;
@@ -187,8 +188,8 @@
 					<label class="input-group-addon" for="location">
 						<span class="glyphicon glyphicon-map-marker"></span>
 					</label>
-					<input type="text" name="location" id="location" class="form-control" ng-focus="locationInputFocus = !locationInputFocus" ng-blur="locationInputFocus = !locationInputFocus" ng-model="search.location" placeholder="{{locationInputFocus ? 'Enter Philippine city or town' : 'All Philippines'}}" ng-style="{'box-shadow': search.location == 'x' ? 'inset 0 -2px 0 #e51c23' : (search.location && locationInputFocus ? 'inset 0 -2px 0 #2196f3' : '')}" typeahead="CfgCitytown as CfgCitytown.citytownName for CfgCitytown in lstCfgCitytown | filter:$viewValue | limitTo:30" />
-					<div class="popover fade bottom in popup-location-error" role="tooltip" ng-style="{'opacity': search.location == 'x' ? '1': '0', 'display': locationInputFocus || search.location == 'x' ? 'block' : 'none'}">
+					<input type="text" name="location" id="location" class="form-control" ng-focus="locationInputFocus = !locationInputFocus" ng-blur="locationInputFocus = !locationInputFocus" ng-model="search.location" placeholder="{{locationInputFocus ? 'Enter Philippine city or town' : 'All Philippines'}}" ng-style="{'box-shadow': search.location != 'all' && search.location && !locationInputFocus && !citytownId ? 'inset 0 -2px 0 #e51c23' : (locationInputFocus && citytownId ? 'inset 0 -2px 0 #2196f3' : '')}" typeahead-on-select="setCitytown($item)" typeahead="CfgCitytown.citytownName as CfgCitytown.citytownName for CfgCitytown in lstCfgCitytown | filter:$viewValue | limitTo:30" ng-change="clearCitytown()" />
+					<div class="popover fade bottom in popup-location-error" role="tooltip" ng-style="{'display': search.location != 'all' && search.location && !locationInputFocus && !citytownId ? 'block' : 'none'}">
 						<div class="arrow" style="left: 50%;"></div>
 						<div class="popover-content">Enter Philippine city or town, province</div>
 					</div>
@@ -203,3 +204,4 @@
 <div class="container-fluid go-to-top" ng-class="{'whiteframe-z6': goTo, 'whiteframe-z2': !goTo}" ng-mouseover="goTo = true" ng-mouseleave="goTo = false" ng-click="goToTop()">
 	<i class="fa fa-angle-up fa-3x"></i>
 </div>
+

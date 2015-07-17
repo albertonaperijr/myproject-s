@@ -1,0 +1,127 @@
+<div ng-include="'views/header.html'" ng-controller="HeaderCtrl"></div>
+
+<!-- Service Page -->
+
+<div class="container view-service-page">
+
+	<!-- Cfg_service -->
+
+	<div class="content-container whiteframe-z1 cfg-service" ng-style="{'height': cfgServiceClicked ? '' : '53px'}" ng-click="cfgServiceClicked = !cfgServiceClicked" style="height: 53px; overflow: none;">
+		<h6 class="bold cursor-pointer">
+			{{service.cfgServiceName}}
+			<i class="fa fa-chevron-down fa-lg pull-right"></i>
+		</h6>
+		<div class="content-right visible-xs">
+			<hr />
+			<div class="content-row">
+				<div class="thumbnail">
+					<img src="images/cfg_services/travelandbookingagent.jpg" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+				</div>
+			</div>
+		</div>
+		<div class="clearfix visible-xs"></div>
+		<div class="content-left pre-description">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+		<div class="content-right hidden-xs">
+			<div class="content-row">
+				<div class="thumbnail">
+					<img src="images/cfg_services/travelandbookingagent.jpg" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<!-- Main Content -->
+
+	<div class="content-container whiteframe-z1 service-details">
+		<div class="content-right visible-xs">
+			<div class="content-row">
+				<div class="thumbnail">
+					<img ng-src="{{result.picture ? result.picture : 'images/serbisyo-icons/no-profile-picture.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+				</div>
+			</div>
+		</div>
+		<div class="clearfix visible-xs"></div>
+		<div class="content-left">
+			<br class="hidden-xs" />
+			<div class="content-row" style="padding: 0">
+				<div class="content-label">Name<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value bold-heading">Barack Obama</div>
+			</div>
+			<hr />
+			<div class="content-row" style="padding-top: 0">
+				<div class="content-label">Employeer<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value">
+					<div class="company-name">DevKinetics Inc.</div>
+					<div><a href="http://pangit.com">http://pangit.com</a></div>
+					<div>stars</div>
+					<div>
+						<a href="#/profile/2" class="btn btn-primary btn-xs text-transform-none">View Details / Feedbacks</a> 
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="content-row">
+				<div class="content-label">Credentials <span class="pull-right hidden-xs">:</span> and Certificates<span ng-show="viewportWidth < 768">:</span></div>
+				<div class="content-value">Badges</div>
+			</div>
+			<hr />
+			<div class="content-row">
+				<div class="content-label">Service Details<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value">
+					<div class="bold-heading">{{service.title}}</div>
+					<div class="pre-description">{{service.description}}</div>
+					<br />
+					<div>
+						<strong ng-repeat="unit in unit" ng-if="unit.id == service.unit && service.price > 0">
+							<span ng-repeat="c in currency" ng-if="c.id == service.currency">{{c.description}}</span>
+							{{service.price | currency: ''}}
+							{{unit.description}}
+						</strong>
+						<strong ng-if="result.price == 0">
+							Free
+						</strong>
+						<strong ng-if="result.price < 0">
+							Call me for quotation
+						</strong>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="content-row">
+				<div class="content-label">Mobile Number<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value">+639123478957</div>
+				<div class="content-label">Landline<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value">(+63) 1234568</div>
+				<div class="content-label">Email<span ng-show="viewportWidth < 768">:</span> <span class="pull-right hidden-xs">:</span></div>
+				<div class="content-value">+biskits.dossa@gmail.com</div>
+			</div>
+		</div>
+		<div class="content-right hidden-xs">
+			<div class="content-row">
+				<div class="thumbnail">
+					<img ng-src="{{result.picture ? result.picture : 'images/serbisyo-icons/no-profile-picture.png'}}" class="img-responsive" alt="{{result.name}}" style="width: 100%" />
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<!-- Service Packages -->
+
+	<serbisyo-ads-result ng-show="results.length" search-type="'2'" heading="results[0].cfgServiceAssets" results="results" items-per-page="itemsPerPage" keyword="" current-page="currentPage" num-pages="numPages" class="max-width-940 center"></serbisyo-ads-result>
+
+	<!-- Pagination for Service Packages -->
+
+	<serbisyo-pagination ng-show="currentPage <= numPages && results.length"></serbisyo-pagination>
+
+</div>
+
+<serbisyo-asset-dialog></serbisyo-asset-dialog>
