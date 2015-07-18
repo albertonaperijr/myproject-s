@@ -1,2 +1,2 @@
-# serbisyo
-Layout sample for Serbisyo.com
+# myproject-s
+Layout sample for myproject-s
