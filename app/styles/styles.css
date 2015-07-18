@@ -630,13 +630,15 @@ a.btn-flat {
 @media (max-width: 992px) {
 	.search-filters {
 		/*height: 60px;*/
+		float: none;
+		position: absolute;
 	}
 
 	.search-filters .content-container {
 		float: left;
 		z-index: 700;
 		cursor: pointer;
-		height: 47px;
+		height: 47px;	
 		-webkit-transition: all .2s linear;
 		-o-transition: all .2s linear;
 		transition: all .2s linear;
@@ -658,26 +660,16 @@ a.btn-flat {
 
 @media (max-width: 450px) {
 	.search-filters {
-		/*height: 120px;*/
-		float: none;
+		position: relative;
 	}
 
 	.search-filters .content-container {
-		float: none;
 		position: absolute;
 	}
 
 	.search-filters .content-container:last-child {
 		margin-left: 0;
 		top: 55px;
-	}
-
-	.search-filters .content-container.content-1 {
-		height: 190px;
-	}
-
-	.search-filters .content-container.content-2 {
-		height: 615px;
 	}
 }
 

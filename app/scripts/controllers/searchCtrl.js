@@ -127,7 +127,6 @@ app.controller('SearchCtrl', ['$rootScope', '$scope', '$route', '$routeParams', 
 		};
 
 		$scope.redirectToViewService = function(result) {
-			toastr.info('service');
 			console.log(result);
 			$scope.closeServiceAssetDialogBox();
 			SharedDataFactory.service = result;

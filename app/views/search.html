@@ -6,7 +6,7 @@
 
 	<!-- Search Filters -->
 
-	<div class="search-filters" ng-style="{'width': viewportWidth > 975 ? '230px' : '', 'height': viewportWidth <= 450 && viewportWidth <= 992 && selectedSearchTypeId == 4 ? '60px' : viewportWidth <= 450 ? '120px' : 'auto'}">
+	<div class="search-filters" ng-style="{'width': viewportWidth > 975 ? '230px' : '', 'height': viewportWidth <= 992 ? '60px' : 'auto'}">
 
 		<serbisyo-search-filter></serbisyo-search-filter>
 
@@ -14,7 +14,7 @@
 
 	<!-- Search Results -->
 
-	<div class="search-results" ng-style="{'width': viewportWidth > 975 ? 'calc(100% - 290px)' : '100%', 'margin-left': viewportWidth > 975 ? '15px' : '0'}">
+	<div class="search-results" ng-style="{'width': viewportWidth > 975 ? 'calc(100% - 290px)' : '100%', 'margin-left': viewportWidth > 975 ? '15px' : '0', 'margin-top': viewportWidth > 992 ? '0' : viewportWidth <= 992 && viewportWidth > 450 ? '60px': selectedSearchTypeId == 4 ? '0' : '60px'}">
 
 		<!-- serbisyo-ads-result -->
 
